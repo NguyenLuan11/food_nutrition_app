@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta name="google-signin-client_id" content="826646183246-ok6toh2snkhenp4hf789fjec79kesghh.apps.googleusercontent.com" />
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="food_nutrition_app">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>food_nutrition_app</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    const serviceWorkerVersion = null;
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
+
+  <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        function initializeGapiClient() {
+            gapi.load('client:auth2', function() {
+                gapi.client.init({
+                    apiKey: 'AIzaSyBWptIAbbl8nbPnJuPnR_ZnoE8g3qi9dbM',
+                    clientId: '826646183246-ok6toh2snkhenp4hf789fjec79kesghh.apps.googleusercontent.com',
+                    discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/people/v1/rest"],
+                    scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+                }).then(function () {
+                    console.log('GAPI client loaded for API');
+                }, function(error) {
+                    console.error('Error loading GAPI client for API', error);
+                });
+            });
+        }
+
+        window.onload = initializeGapiClient;
+
+        function onSignIn(googleUser) {
+            var id_token = googleUser.getAuthResponse().id_token;
+            var access_token = googleUser.getAuthResponse().access_token;
+
+            try {
+                if (!gapi.client) {
+                    throw new Error("gapi.client library is not loaded");
+                }
+
+                gapi.auth.setToken({
+                    'access_token': access_token
+                });
+
+                // Xử lý đăng nhập hoặc gọi API ở đây
+                console.log("User signed in with token: ", access_token);
+            } catch (error) {
+                console.error("Error in onGoogleSignIn:", error);
+            }
+        }
+    </script>
+</head>
+<body>
+  <script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
+  </script>
+
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</body>
+</html>

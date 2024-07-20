@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "826646183246",
+    "project_id": "food-nutrition-app-170502",
+    "storage_bucket": "food-nutrition-app-170502.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826646183246:android:002110436041ae075e321f",
+        "android_client_info": {
+          "package_name": "com.nguyenluan.food_nutrition_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826646183246-ok6toh2snkhenp4hf789fjec79kesghh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI_FAKmbrLt80EaqNxgzAN7SC9JrOSekY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826646183246-ok6toh2snkhenp4hf789fjec79kesghh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
