@@ -526,7 +526,7 @@ class _CheckBMIScreenState extends State<CheckBMIScreen> {
 
   Widget _getMaleImage() {
     int age = int.tryParse(_ageController.text) ?? 0;
-    return age > 60
+    return age >= 60
         ? Image.asset(
             'assets/images/old_man.png',
             width: SizeConfig.screenWidth * 0.35,
