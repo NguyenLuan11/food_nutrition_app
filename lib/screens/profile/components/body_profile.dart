@@ -5,6 +5,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:food_nutrition_app/screens/login_register/components/show_message_dialog.dart';
+import 'package:food_nutrition_app/screens/profile/components/BMI_line_chart/bmi_line_chart.dart';
+import 'package:food_nutrition_app/screens/profile/components/BMI_line_chart/bmi_points.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:food_nutrition_app/api/services/user_service.dart';
 import 'package:food_nutrition_app/contants.dart';
@@ -15,6 +17,7 @@ import 'package:food_nutrition_app/screens/profile/components/text_form_field_de
 import 'package:food_nutrition_app/size_config.dart';
 import 'package:food_nutrition_app/utils/check_token_expired.dart';
 import 'package:food_nutrition_app/utils/convert_base64_image.dart';
+import 'package:intl/intl.dart';
 
 class BodyProfile extends StatefulWidget {
   const BodyProfile({super.key, required this.user});
@@ -35,6 +38,17 @@ class _BodyProfileState extends State<BodyProfile> {
 
   File? _image;
   final picker = ImagePicker();
+  final dataLineChart = <double>[
+    19.2,
+    22.3,
+    24,
+    16.7,
+    30.5,
+    21.9,
+    17.4,
+    32,
+    20.22
+  ];
 
   Future getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -47,6 +61,29 @@ class _BodyProfileState extends State<BodyProfile> {
         print('No image selected.');
       }
     });
+  }
+
+  List<double> getDataBMIForLineChart() {
+    final dataBMI = <double>[];
+    // print("Length of listUserBmi: ${widget.user.listUserBmi?.length}");
+    widget.user.listUserBmi?.forEach((userBMI) {
+      dataBMI.add(double.parse(userBMI.result.toStringAsFixed(2)));
+    });
+
+    return dataBMI;
+  }
+
+  List<String> getBottomTitlesForLineChart() {
+    final bottomTitles = <String>[];
+    widget.user.listUserBmi?.forEach((userBMI) {
+      String dateString = userBMI.checkDate.toString();
+      DateTime parsedDate = DateTime.parse(dateString);
+      String formattedDate = DateFormat('dd/MM').format(parsedDate);
+
+      bottomTitles.add(formattedDate);
+    });
+    // print("BottomTitles: $bottomTitles");
+    return bottomTitles;
   }
 
   void updateProfile() async {
@@ -109,7 +146,7 @@ class _BodyProfileState extends State<BodyProfile> {
       child: Column(
         children: [
           Container(
-            margin: const EdgeInsets.only(bottom: kDefaultPadding / 2),
+            margin: const EdgeInsets.only(bottom: 5),
             // It will cover 20% of our total height
             height: orientation == Orientation.portrait
                 ? SizeConfig.screenHeight * 0.3
@@ -196,6 +233,10 @@ class _BodyProfileState extends State<BodyProfile> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                LineChartWidget(
+                    points: bmiPoints(getDataBMIForLineChart()),
+                    bottomTitles: getBottomTitlesForLineChart()),
+                const SizedBox(height: kDefaultPadding),
                 TextFormFieldDesign(
                   initialValue: widget.user.userName,
                   labelText: "User Name",
