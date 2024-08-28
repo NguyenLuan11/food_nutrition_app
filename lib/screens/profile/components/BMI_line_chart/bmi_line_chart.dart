@@ -72,7 +72,7 @@ class LineChartWidget extends StatelessWidget {
               bottom: BorderSide(color: kTextColor),
             ),
           ),
-          backgroundColor: Colors.amber[100],
+          // backgroundColor: Colors.amber[100],
           titlesData: FlTitlesData(
             show: true,
             rightTitles:
