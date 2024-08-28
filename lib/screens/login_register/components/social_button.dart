@@ -8,7 +8,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food_nutrition_app/api/services/user_service.dart';
 import 'package:food_nutrition_app/models/user.dart';
 import 'package:food_nutrition_app/screens/home/home_screen.dart';
-import 'package:food_nutrition_app/screens/login_register/components/show_message_dialog.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -67,8 +66,8 @@ class _SocialButtonState extends State<SocialButton> {
       User? gUser = await _handleSignIn();
       if (gUser == null) {
         log("Google Sign-In was canceled or failed.");
-        await showMessageDialog(
-            context, "Error!", "Google Sign-In was canceled or failed.");
+        // await showMessageDialog(
+        //     context, "Error!", "Google Sign-In was canceled or failed.");
         return;
       }
 
