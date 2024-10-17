@@ -1,6 +1,6 @@
 class ApiConstants {
-  // static String baseUrl = 'http://192.168.1.5:5007/api'; // HoChiHieu
-  static String baseUrl = 'http://192.168.1.18:5007/api'; // RuaXe143
+  static String baseUrl = 'http://192.168.1.5:5007/api'; // HoChiHieu
+  // static String baseUrl = 'http://192.168.1.18:5007/api'; // RuaXe143
   // static String baseUrl = 'http://192.168.1.7:5007/api'; // TRUONGTRUC
 
   // static String baseUrl = 'http://127.0.143.145:5007/api';

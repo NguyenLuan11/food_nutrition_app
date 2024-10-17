@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/size_config.dart';
+
+// Định nghĩa lại FunctionStringCallback để không phụ thuộc vào dart:html
+typedef FunctionStringCallback = void Function(String);
 
 class HeaderWithSearchBox extends StatelessWidget {
   const HeaderWithSearchBox({super.key, required this.text, this.onChanged});
