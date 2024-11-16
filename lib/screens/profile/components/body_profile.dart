@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -38,17 +37,6 @@ class _BodyProfileState extends State<BodyProfile> {
 
   File? _image;
   final picker = ImagePicker();
-  final dataLineChart = <double>[
-    19.2,
-    22.3,
-    24,
-    16.7,
-    30.5,
-    21.9,
-    17.4,
-    32,
-    20.22
-  ];
 
   Future getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -87,48 +75,45 @@ class _BodyProfileState extends State<BodyProfile> {
   }
 
   void updateProfile() async {
-    try {
-      // update user's avatar
-      if (_image != null) {
-        try {
-          // Read bytes from the file object
-          List<int> imageBytes = await _image!.readAsBytes();
-          // base64 encode the bytes
-          String base64Image = base64Encode(imageBytes);
-          // print("base64Image: $base64Image");
-          // update avatar service
-          var isUpdateSuccess = await UserService().updateAvatar(
-              widget.user.userId!, widget.user.accessToken!, base64Image);
-          if (isUpdateSuccess) {
-            showMessageDialog(
-                context, "Update Avatar", "Upload user's avatar successfully!");
-          }
-        } catch (e) {
-          showMessageDialog(
-              context, "Update Avatar", "Update user's avatar failed: $e");
-          // print("Update user's avatar failed: $e");
-        }
-      }
-
-      // update user's infor
-      var isUpdateSuccess = await UserService().updateUserInfo(
+  try {
+    // Update user's avatar
+    if (_image != null) {
+      try {
+        // Gọi hàm updateAvatar
+        bool isUpdateSuccess = await UserService().updateAvatar(
           widget.user.userId!,
-          username.text,
-          fullname.text,
-          email.text,
-          dateBirth.text,
-          phone.text,
-          address.text);
-      if (isUpdateSuccess) {
+          widget.user.accessToken!,
+          _image!,
+        );
+        if (isUpdateSuccess) {
+          showMessageDialog(
+              context, "Update Avatar", "Upload user's avatar successfully!");
+        }
+      } catch (e) {
         showMessageDialog(
-            context, "Update Infor", "Upload user's infor successfully!");
+            context, "Update Avatar", "Update user's avatar failed: $e");
       }
-    } catch (e) {
-      showMessageDialog(
-          context, "Update Infor", "Update user's infor failed: $e");
-      // print("Update user's infor failed: $e");
     }
+
+    // Update user's information
+    bool isUpdateSuccess = await UserService().updateUserInfo(
+      widget.user.userId!,
+      username.text,
+      fullname.text,
+      email.text,
+      dateBirth.text,
+      phone.text,
+      address.text,
+    );
+    if (isUpdateSuccess) {
+      showMessageDialog(
+          context, "Update Info", "Upload user's info successfully!");
+    }
+  } catch (e) {
+    showMessageDialog(
+        context, "Update Info", "Update user's info failed: $e");
   }
+}
 
   @override
   void initState() {

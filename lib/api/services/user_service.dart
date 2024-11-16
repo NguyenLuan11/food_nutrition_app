@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:food_nutrition_app/models/message.dart';
 import 'package:food_nutrition_app/models/user.dart';
 import 'package:http/http.dart' as http;
@@ -111,30 +112,61 @@ class UserService {
     }
   }
 
-  Future<bool> updateAvatar(
-      int id, String accessToken, String base64Image) async {
-    try {
-      final url = Uri.parse(
-          "$baseUrlPrefix${ApiConstants.uploadAvtUsersEndpoint}${id.toString()}");
-      final body = jsonEncode({"image": base64Image});
-      final response = await http.put(url,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $accessToken',
-          },
-          body: body);
-      if (response.statusCode == 200) {
-        // print("upload user's avatar successfully!");
-        return true;
-      } else {
-        final messageResponse = messageFromJson(response.body);
-        throw messageResponse.message;
-      }
-    } catch (e) {
-      log(e.toString());
-      rethrow;
+  // Future<bool> updateAvatar(
+  //     int id, String accessToken, String base64Image) async {
+  //   try {
+  //     final url = Uri.parse(
+  //         "$baseUrlPrefix${ApiConstants.uploadAvtUsersEndpoint}${id.toString()}");
+  //     final body = jsonEncode({"image": base64Image});
+  //     final response = await http.put(url,
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': 'Bearer $accessToken',
+  //         },
+  //         body: body);
+  //     if (response.statusCode == 200) {
+  //       // print("upload user's avatar successfully!");
+  //       return true;
+  //     } else {
+  //       final messageResponse = messageFromJson(response.body);
+  //       throw messageResponse.message;
+  //     }
+  //   } catch (e) {
+  //     log(e.toString());
+  //     rethrow;
+  //   }
+  // }
+
+  Future<bool> updateAvatar(int id, String accessToken, File imageFile) async {
+  try {
+    final url = Uri.parse(
+        "$baseUrlPrefix${ApiConstants.uploadAvtUsersEndpoint}${id.toString()}");
+
+    // Tạo multipart request
+    final request = http.MultipartRequest('PUT', url)
+      ..headers.addAll({
+        'Authorization': 'Bearer $accessToken',
+      })
+      ..files.add(await http.MultipartFile.fromPath(
+        'picAvt', // Tên tham số API mong đợi
+        imageFile.path,
+      ));
+
+    final response = await request.send();
+
+    if (response.statusCode == 200) {
+      print("Upload user's avatar successfully!");
+      return true;
+    } else {
+      final responseData = await response.stream.bytesToString();
+      final messageResponse = jsonDecode(responseData);
+      throw messageResponse['message'] ?? "Unknown error";
     }
+  } catch (e) {
+    log(e.toString());
+    rethrow;
   }
+}
 
   Future<bool> updateUserInfo(int id, String userName, String? fullName,
       String email, String? dateBirth, String? phone, String? address) async {
