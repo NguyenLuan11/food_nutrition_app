@@ -1,13 +1,13 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:food_nutrition_app/api/api_constants.dart';
 import 'package:food_nutrition_app/api/services/category_service.dart';
 import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/models/article.dart';
 import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
 import 'package:food_nutrition_app/size_config.dart';
 import 'package:food_nutrition_app/utils/check_token_expired.dart';
-import 'package:food_nutrition_app/utils/convert_base64_image.dart';
 import 'package:intl/intl.dart';
 
 class DetailsArticleScreen extends StatefulWidget {
@@ -71,8 +71,8 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
                     horizontal: SizeConfig.screenWidth * 0.18),
                 child: Hero(
                   tag: widget.article.title,
-                  child: Image.memory(
-                    convertBase64Image(widget.article.thumbnail.toString()),
+                  child: Image.network(
+                    ApiConstants.getThumbnailArticleEndpoint + widget.article.thumbnail.toString(),
                     width: SizeConfig.screenWidth * 0.6,
                   ),
                 ),

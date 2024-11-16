@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:food_nutrition_app/api/api_constants.dart';
 import 'package:food_nutrition_app/screens/login_register/components/show_message_dialog.dart';
 import 'package:food_nutrition_app/screens/profile/components/BMI_line_chart/bmi_line_chart.dart';
 import 'package:food_nutrition_app/screens/profile/components/BMI_line_chart/bmi_points.dart';
@@ -16,7 +17,6 @@ import 'package:food_nutrition_app/screens/profile/components/date_picker_form_f
 import 'package:food_nutrition_app/screens/profile/components/text_form_field_design.dart';
 import 'package:food_nutrition_app/size_config.dart';
 import 'package:food_nutrition_app/utils/check_token_expired.dart';
-import 'package:food_nutrition_app/utils/convert_base64_image.dart';
 import 'package:intl/intl.dart';
 
 class BodyProfile extends StatefulWidget {
@@ -200,8 +200,8 @@ class _BodyProfileState extends State<BodyProfile> {
                                 )
                               : widget.user.image != null
                                   ? DecorationImage(
-                                      image: MemoryImage(
-                                        convertBase64Image(widget.user.image!),
+                                      image: NetworkImage(
+                                        ApiConstants.getAvtUserEndpoint + widget.user.image!,
                                       ),
                                       fit: BoxFit.fill,
                                     )

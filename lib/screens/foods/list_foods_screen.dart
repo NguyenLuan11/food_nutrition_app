@@ -8,7 +8,6 @@ import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
 import 'package:food_nutrition_app/screens/home/components/header_with_searchbox.dart';
 import 'package:food_nutrition_app/size_config.dart';
 import 'package:food_nutrition_app/utils/check_token_expired.dart';
-import 'package:food_nutrition_app/utils/convert_base64_image.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -149,9 +148,8 @@ class _ListFoodsScreenState extends State<ListFoodsScreen> {
                             children: [
                               Hero(
                                 tag: foundFoods[index].foodName,
-                                child: Image.memory(
-                                  convertBase64Image(
-                                      foundFoods[index].image.toString()),
+                                child: Image.network(
+                                  ApiConstants.getImgFoodEndpoint + foundFoods[index].image.toString(),
                                   width: SizeConfig.screenWidth * 0.26,
                                 ),
                               ),

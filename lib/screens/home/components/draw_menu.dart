@@ -1,12 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:food_nutrition_app/api/api_constants.dart';
 import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/models/user.dart';
 import 'package:food_nutrition_app/screens/home/components/list_view_menu_item.dart';
 import 'package:food_nutrition_app/screens/login_register/login_screen.dart';
 import 'package:food_nutrition_app/screens/profile/profile_screen.dart';
-import 'package:food_nutrition_app/utils/convert_base64_image.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,8 +29,8 @@ Drawer drawMenu(
                     ? BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: MemoryImage(
-                              convertBase64Image(user!.image.toString())),
+                          image: NetworkImage(
+                              ApiConstants.getAvtUserEndpoint + user!.image.toString()),
                           fit: BoxFit.fill,
                         ),
                       )

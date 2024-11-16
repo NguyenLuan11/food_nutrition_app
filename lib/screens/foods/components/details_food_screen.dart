@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_nutrition_app/api/api_constants.dart';
 import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/models/food.dart';
 import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
 import 'package:food_nutrition_app/size_config.dart';
 import 'package:food_nutrition_app/utils/check_token_expired.dart';
-import 'package:food_nutrition_app/utils/convert_base64_image.dart';
 import 'package:intl/intl.dart';
 
 class DetailsFoodScreen extends StatefulWidget {
@@ -44,8 +44,8 @@ class _DetailsFoodScreenState extends State<DetailsFoodScreen> {
                     horizontal: SizeConfig.screenWidth * 0.18),
                 child: Hero(
                   tag: widget.food.foodName,
-                  child: Image.memory(
-                    convertBase64Image(widget.food.image.toString()),
+                  child: Image.network(
+                    ApiConstants.getImgFoodEndpoint + widget.food.image.toString(),
                     width: SizeConfig.screenWidth * 0.6,
                   ),
                 ),

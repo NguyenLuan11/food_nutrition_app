@@ -8,7 +8,6 @@ import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
 import 'package:food_nutrition_app/screens/home/components/header_with_searchbox.dart';
 import 'package:food_nutrition_app/size_config.dart';
 import 'package:food_nutrition_app/utils/check_token_expired.dart';
-import 'package:food_nutrition_app/utils/convert_base64_image.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -146,10 +145,9 @@ class _ListArticlesScreenState extends State<ListArticlesScreen> {
                             children: [
                               Hero(
                                 tag: foundArticles[index].title,
-                                child: Image.memory(
-                                  convertBase64Image(foundArticles[index]
-                                      .thumbnail
-                                      .toString()),
+                                child: Image.network(
+                                  ApiConstants.getThumbnailArticleEndpoint + foundArticles[index]
+                                      .thumbnail.toString(),
                                   width: SizeConfig.screenWidth * 0.26,
                                 ),
                               ),

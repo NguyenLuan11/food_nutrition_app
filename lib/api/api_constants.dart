@@ -1,5 +1,4 @@
 class ApiConstants {
-  
   static String baseUrl = 'http://fn-api.local:5007/api';
 
   // Users
@@ -10,6 +9,7 @@ class ApiConstants {
   static String refreshTokenEndpoint = 'refresh-token';
   static String uploadAvtUsersEndpoint = 'upload-avt/';
   static String userEndpoint = 'user/';
+  static String getAvtUserEndpoint =  '$baseUrl${urlPrefixUser}user/images/';
 
   // User - BMI
   static String urlPrefixUserBMI = '/userBMI-management/';
@@ -23,6 +23,7 @@ class ApiConstants {
   static String urlPrefixArticle = '/article-management/';
   static String getAllArticleEndpoint = 'articles';
   static String getArticlesByCatNameEndpoint = 'article/';
+  static String getThumbnailArticleEndpoint = '$baseUrl${urlPrefixArticle}article/thumbnail/';
 
   // Nature Nutrient
   static String urlPrefixNatureNutrient = '/natureNutrient-management/';
@@ -37,6 +38,7 @@ class ApiConstants {
   static String urlPrefixFoods = '/foods-management/';
   static String getAllFoodsEndpoint = 'foods';
   static String getFoodByEndpoint = 'food/';
+  static String getImgFoodEndpoint = '$baseUrl${urlPrefixFoods}food/images/';
 
   // Food - Nutrient
 }
