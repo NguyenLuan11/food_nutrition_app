@@ -38,6 +38,7 @@ class ApiConstants {
   static String urlPrefixFoods = '/foods-management/';
   static String getAllFoodsEndpoint = 'foods';
   static String getFoodByEndpoint = 'food/';
+  static String getRecommendFoodByBMIEndpoint = 'food/recommend/';
   static String getImgFoodEndpoint = '$baseUrl${urlPrefixFoods}food/images/';
 
   // Food - Nutrient

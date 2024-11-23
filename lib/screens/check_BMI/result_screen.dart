@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:food_nutrition_app/local_components/default_button.dart';
 import 'package:food_nutrition_app/screens/check_BMI/components/calculatedBMI.dart';
 import 'package:food_nutrition_app/screens/check_BMI/components/commentsBMI.dart';
+import 'package:food_nutrition_app/screens/check_BMI/meal_plan_screem.dart';
 import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
 import 'package:food_nutrition_app/screens/login_register/components/show_message_dialog.dart';
 import 'package:food_nutrition_app/size_config.dart';
@@ -117,10 +118,10 @@ class _ResultsBMIScreenState extends State<ResultsBMIScreen> {
               child: Table(
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: [
-                  buildTableRow("Gender", widget.gender, ""),
-                  buildTableRow("Age", widget.age.toInt().toString(), ""),
-                  buildTableRow("Height", widget.height, widget.heightUnit),
-                  buildTableRow("Weight", widget.weight, widget.weightUnit),
+                  // buildTableRow("Gender", widget.gender, ""),
+                  buildTableRow("Tuổi", widget.age.toInt().toString(), ""),
+                  buildTableRow("Chiều cao", widget.height, widget.heightUnit),
+                  buildTableRow("Cân nặng", widget.weight, widget.weightUnit),
                 ],
               ),
             ),
@@ -130,17 +131,23 @@ class _ResultsBMIScreenState extends State<ResultsBMIScreen> {
             ),
 
             //Button Diet Plan
-            Padding(
-              padding: const EdgeInsets.all(kDefaultPadding),
-              child: DefaultButton(
-                  text: "View Diet Plan",
-                  press: () {},
-                  backgroundColorBtn: kPrimaryColor),
-            ),
-
-            SizedBox(
-              height: kDefaultPadding,
-            ),
+            widget.age >= 18 && widget.age <= 60
+                ? Padding(
+                    padding: const EdgeInsets.all(kDefaultPadding),
+                    child: DefaultButton(
+                        text: "Thực phẩm tham khảo",
+                        press: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      MealPlanScreen(bmi: widget.bmi)));
+                        },
+                        backgroundColorBtn: kPrimaryColor),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(kDefaultPadding),
+                  ),
           ],
         ),
       ),

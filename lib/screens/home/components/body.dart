@@ -16,9 +16,7 @@ class Body extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const HeaderWithSearchBox(
-            text: "Food Nutrition",
-          ),
+          const HeaderWithSearchBox(text: "Food Nutrition"),
           SizedBox(
             height: 450,
             child: Padding(

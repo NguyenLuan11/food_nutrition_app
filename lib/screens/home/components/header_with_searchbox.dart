@@ -19,14 +19,14 @@ class HeaderWithSearchBox extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: kDefaultPadding * 1.5),
       // It will cover 20% of our total height
-      height: SizeConfig.screenHeight * 0.2,
+      height: SizeConfig.screenHeight * 0.18,
       child: Stack(
         children: [
           Container(
             padding: const EdgeInsets.only(
               left: kDefaultPadding,
               right: kDefaultPadding,
-              bottom: kDefaultPadding,
+              bottom: kDefaultPadding / 4,
             ),
             height: SizeConfig.screenHeight * 0.2 - 50,
             decoration: const BoxDecoration(
@@ -46,53 +46,56 @@ class HeaderWithSearchBox extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
-            bottom: kDefaultPadding,
-            right: 0,
-            left: 0,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              height: 54,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(0, 10),
-                      blurRadius: 50,
-                      color: kPrimaryColor.withOpacity(0.23),
-                    ),
-                  ]),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      onChanged: (value) =>
-                          onChanged != null ? onChanged!(value) : {},
-                      decoration: InputDecoration(
-                        hintText: "Search",
-                        hintStyle: TextStyle(
-                          color: kPrimaryColor.withOpacity(0.5),
-                          fontSize: 20,
+          onChanged != null
+              ? Positioned(
+                  bottom: kDefaultPadding / 4,
+                  right: 0,
+                  left: 0,
+                  child: Container(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    height: 54,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: const Offset(0, 10),
+                            blurRadius: 50,
+                            color: kPrimaryColor.withOpacity(0.23),
+                          ),
+                        ]),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            onChanged: (value) => onChanged!(value),
+                            decoration: InputDecoration(
+                              hintText: "Search",
+                              hintStyle: TextStyle(
+                                color: kPrimaryColor.withOpacity(0.5),
+                                fontSize: 20,
+                              ),
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                            ),
+                          ),
                         ),
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                      ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.search,
+                            size: 30,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.search,
-                      size: 30,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
+                )
+              : const SizedBox(height: 1),
         ],
       ),
     );
