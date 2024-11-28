@@ -2,7 +2,6 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:food_nutrition_app/api/api_constants.dart';
 import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/firebase_options.dart';
 import 'package:food_nutrition_app/screens/splash/splash_screen.dart';
@@ -15,9 +14,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  // Khởi tạo baseUrl từ mDNS
-  await ApiConstants.initializeBaseUrl();
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var userId = prefs.getInt("userId");
