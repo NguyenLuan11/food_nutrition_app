@@ -119,26 +119,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                   labelText: "Password",
                                 ),
                                 const SizedBox(height: 20),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Checkbox(
-                                      activeColor: kPrimaryColor,
-                                      side:
-                                          const BorderSide(color: Colors.white),
-                                      value: isChecked,
-                                      onChanged: (value) {
-                                        isChecked = !isChecked;
-                                        setState(() {});
-                                      },
-                                    ),
-                                    const Text(
-                                      "Remember Me",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 22),
-                                    ),
-                                  ],
-                                ),
+                                // Row(
+                                //   crossAxisAlignment: CrossAxisAlignment.center,
+                                //   children: [
+                                //     Checkbox(
+                                //       activeColor: kPrimaryColor,
+                                //       side:
+                                //           const BorderSide(color: Colors.white),
+                                //       value: isChecked,
+                                //       onChanged: (value) {
+                                //         isChecked = !isChecked;
+                                //         setState(() {});
+                                //       },
+                                //     ),
+                                //     const Text(
+                                //       "Remember Me",
+                                //       style: TextStyle(
+                                //           color: Colors.white, fontSize: 22),
+                                //     ),
+                                //   ],
+                                // ),
                                 const SizedBox(height: 20),
                                 DefaultButton(
                                   text: "LOGIN",
