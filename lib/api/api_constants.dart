@@ -1,45 +1,65 @@
+// ignore_for_file: avoid_print
+
+import 'package:food_nutrition_app/api/mdns_service.dart';
+
 class ApiConstants {
-  static String baseUrl = 'http://fn-api.local:5007/api';
+  static String baseUrl = ''; // Giá trị sẽ được cập nhật qua mDNS
+  static const String fallbackBaseUrl = 'http://fn-api.local:5007/api';
 
   // Users
-  static String urlPrefixUser = '/user-management/';
-  static String loginUsersEndpoint = 'login';
-  static String registerUsersEndpoint = 'register';
-  static String addUsersEndpoint = 'add';
-  static String refreshTokenEndpoint = 'refresh-token';
-  static String uploadAvtUsersEndpoint = 'upload-avt/';
-  static String userEndpoint = 'user/';
-  static String getAvtUserEndpoint =  '$baseUrl${urlPrefixUser}user/images/';
+  static const String urlPrefixUser = '/user-management/';
+  static const String loginUsersEndpoint = 'login';
+  static const String registerUsersEndpoint = 'register';
+  static const String addUsersEndpoint = 'add';
+  static const String refreshTokenEndpoint = 'refresh-token';
+  static const String uploadAvtUsersEndpoint = 'upload-avt/';
+  static const String userEndpoint = 'user/';
+  static String get getAvtUserEndpoint =>
+      '$baseUrl${urlPrefixUser}user/images/';
 
   // User - BMI
-  static String urlPrefixUserBMI = '/userBMI-management/';
-  static String addUserBMIEndpoint = 'userBMI';
+  static const String urlPrefixUserBMI = '/userBMI-management/';
+  static const String addUserBMIEndpoint = 'userBMI';
 
   // Category Article
-  static String urlPrefixCategoryArticle = '/categoryArticle-management/';
-  static String getCategoryArticleByEndpoint = 'categoryArticle/';
+  static const String urlPrefixCategoryArticle = '/categoryArticle-management/';
+  static const String getCategoryArticleByEndpoint = 'categoryArticle/';
 
   // Article
-  static String urlPrefixArticle = '/article-management/';
-  static String getAllArticleEndpoint = 'articles';
-  static String getArticlesByCatNameEndpoint = 'article/';
-  static String getThumbnailArticleEndpoint = '$baseUrl${urlPrefixArticle}article/thumbnail/';
+  static const String urlPrefixArticle = '/article-management/';
+  static const String getAllArticleEndpoint = 'articles';
+  static const String getArticlesByCatNameEndpoint = 'article/';
+  static String get getThumbnailArticleEndpoint =>
+      '$baseUrl${urlPrefixArticle}article/thumbnail/';
 
   // Nature Nutrient
-  static String urlPrefixNatureNutrient = '/natureNutrient-management/';
-  static String getNatureNutrientByEndpoint = 'natureNutrient/';
+  static const String urlPrefixNatureNutrient = '/natureNutrient-management/';
+  static const String getNatureNutrientByEndpoint = 'natureNutrient/';
 
   // Nutrient
-  static String urlPrefixNutrient = '/nutrients-management/';
-  static String getAllNutrientsEndpoint = 'nutrients';
-  static String getNutrientsByEndpoint = 'nutrient/';
+  static const String urlPrefixNutrient = '/nutrients-management/';
+  static const String getAllNutrientsEndpoint = 'nutrients';
+  static const String getNutrientsByEndpoint = 'nutrient/';
 
   // Food
-  static String urlPrefixFoods = '/foods-management/';
-  static String getAllFoodsEndpoint = 'foods';
-  static String getFoodByEndpoint = 'food/';
-  static String getRecommendFoodByBMIEndpoint = 'food/recommend/';
-  static String getImgFoodEndpoint = '$baseUrl${urlPrefixFoods}food/images/';
+  static const String urlPrefixFoods = '/foods-management/';
+  static const String getAllFoodsEndpoint = 'foods';
+  static const String getFoodByEndpoint = 'food/';
+  static const String getRecommendFoodByBMIEndpoint = 'food/recommend/';
+  static String get getImgFoodEndpoint =>
+      '$baseUrl${urlPrefixFoods}food/images/';
 
-  // Food - Nutrient
+  // Phương thức để cập nhật baseUrl qua mDNS
+  static Future<void> initializeBaseUrl() async {
+    final MdnsService mdnsService = MdnsService();
+    final String? resolvedIp = await mdnsService.discoverService();
+
+    if (resolvedIp != null) {
+      baseUrl = 'http://$resolvedIp:5007/api';
+      print("API Base URL resolved to: $baseUrl");
+    } else {
+      baseUrl = fallbackBaseUrl;
+      print("Failed to resolve mDNS. Using fallback base URL: $baseUrl");
+    }
+  }
 }
