@@ -130,8 +130,8 @@ class _SocialButtonState extends State<SocialButton> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SocialButtonItem(
-              pathIcon: 'assets/icons/facebook-2.svg', press: () {}),
+          // SocialButtonItem(
+          //     pathIcon: 'assets/icons/facebook-2.svg', press: () {}),
           const SizedBox(width: 30),
           SocialButtonItem(
               pathIcon: 'assets/icons/google-icon.svg',
@@ -140,7 +140,7 @@ class _SocialButtonState extends State<SocialButton> {
                 onGoogleSignIn(context);
               }),
           const SizedBox(width: 30),
-          SocialButtonItem(pathIcon: 'assets/icons/twitter.svg', press: () {}),
+          // SocialButtonItem(pathIcon: 'assets/icons/twitter.svg', press: () {}),
         ],
       ),
     );
