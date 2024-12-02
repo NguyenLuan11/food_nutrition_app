@@ -138,35 +138,36 @@ class UserService {
   // }
 
   Future<bool> updateAvatar(int id, String accessToken, File imageFile) async {
-  try {
-    final url = Uri.parse(
-        "$baseUrlPrefix${ApiConstants.uploadAvtUsersEndpoint}${id.toString()}");
+    try {
+      final url = Uri.parse(
+          "$baseUrlPrefix${ApiConstants.uploadAvtUsersEndpoint}${id.toString()}");
+      print(url.toString());
 
-    // Tạo multipart request
-    final request = http.MultipartRequest('PUT', url)
-      ..headers.addAll({
-        'Authorization': 'Bearer $accessToken',
-      })
-      ..files.add(await http.MultipartFile.fromPath(
-        'picAvt', // Tên tham số API mong đợi
-        imageFile.path,
-      ));
+      // Tạo multipart request
+      final request = http.MultipartRequest('PUT', url)
+        ..headers.addAll({
+          'Authorization': 'Bearer $accessToken',
+        })
+        ..files.add(await http.MultipartFile.fromPath(
+          'picAvt', // Tên tham số API mong đợi
+          imageFile.path,
+        ));
 
-    final response = await request.send();
+      final response = await request.send();
 
-    if (response.statusCode == 200) {
-      print("Upload user's avatar successfully!");
-      return true;
-    } else {
-      final responseData = await response.stream.bytesToString();
-      final messageResponse = jsonDecode(responseData);
-      throw messageResponse['message'] ?? "Unknown error";
+      if (response.statusCode == 200) {
+        print("Upload user's avatar successfully!");
+        return true;
+      } else {
+        final responseData = await response.stream.bytesToString();
+        final messageResponse = jsonDecode(responseData);
+        throw messageResponse['message'] ?? "Unknown error";
+      }
+    } catch (e) {
+      log(e.toString());
+      rethrow;
     }
-  } catch (e) {
-    log(e.toString());
-    rethrow;
   }
-}
 
   Future<bool> updateUserInfo(int id, String userName, String? fullName,
       String email, String? dateBirth, String? phone, String? address) async {

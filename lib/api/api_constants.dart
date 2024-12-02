@@ -1,5 +1,6 @@
 class ApiConstants {
   static String baseUrl = 'http://fn-api.local:5007/api';
+  // static String baseUrl = 'http://192.168.2.41:5007/api';
 
   // Users
   static String urlPrefixUser = '/user-management/';
@@ -7,7 +8,7 @@ class ApiConstants {
   static String registerUsersEndpoint = 'register';
   static String addUsersEndpoint = 'add';
   static String refreshTokenEndpoint = 'refresh-token';
-  static String uploadAvtUsersEndpoint = 'upload-avt/';
+  static String uploadAvtUsersEndpoint = 'user/upload-avt/';
   static String userEndpoint = 'user/';
   static String getAvtUserEndpoint = '$baseUrl${urlPrefixUser}user/images/';
 

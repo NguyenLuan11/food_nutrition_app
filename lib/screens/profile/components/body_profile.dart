@@ -53,67 +53,79 @@ class _BodyProfileState extends State<BodyProfile> {
 
   List<double> getDataBMIForLineChart() {
     final dataBMI = <double>[];
-    // print("Length of listUserBmi: ${widget.user.listUserBmi?.length}");
-    widget.user.listUserBmi?.forEach((userBMI) {
-      dataBMI.add(double.parse(userBMI.result.toStringAsFixed(2)));
-    });
-
+    // Check if listUserBmi is not null before accessing
+    if (widget.user.listUserBmi != null) {
+      for (var userBMI in widget.user.listUserBmi!) {
+        dataBMI.add(double.parse(userBMI.result.toStringAsFixed(2)));
+      }
+    }
     return dataBMI;
   }
 
   List<String> getBottomTitlesForLineChart() {
     final bottomTitles = <String>[];
-    widget.user.listUserBmi?.forEach((userBMI) {
-      String dateString = userBMI.checkDate.toString();
-      DateTime parsedDate = DateTime.parse(dateString);
-      String formattedDate = DateFormat('dd/MM').format(parsedDate);
+    // Check if listUserBmi is not null before accessing
+    if (widget.user.listUserBmi != null) {
+      for (var userBMI in widget.user.listUserBmi!) {
+        String dateString = userBMI.checkDate.toString();
+        DateTime parsedDate = DateTime.parse(dateString);
+        String formattedDate = DateFormat('dd/MM').format(parsedDate);
 
-      bottomTitles.add(formattedDate);
-    });
-    // print("BottomTitles: $bottomTitles");
+        bottomTitles.add(formattedDate);
+      }
+    }
     return bottomTitles;
   }
 
   void updateProfile() async {
-  try {
-    // Update user's avatar
-    if (_image != null) {
-      try {
-        // Gọi hàm updateAvatar
-        bool isUpdateSuccess = await UserService().updateAvatar(
-          widget.user.userId!,
-          widget.user.accessToken!,
-          _image!,
-        );
-        if (isUpdateSuccess) {
-          showMessageDialog(
-              context, "Update Avatar", "Upload user's avatar successfully!");
-        }
-      } catch (e) {
+    try {
+      // Ensure userId and accessToken are not null before proceeding
+      if (widget.user.userId == null || widget.user.accessToken == null) {
         showMessageDialog(
-            context, "Update Avatar", "Update user's avatar failed: $e");
+          context,
+          "Update Avatar",
+          "User ID or Access Token is missing.",
+        );
+        return;
       }
-    }
 
-    // Update user's information
-    bool isUpdateSuccess = await UserService().updateUserInfo(
-      widget.user.userId!,
-      username.text,
-      fullname.text,
-      email.text,
-      dateBirth.text,
-      phone.text,
-      address.text,
-    );
-    if (isUpdateSuccess) {
+      // Update user's avatar if a new image is selected
+      if (_image != null) {
+        try {
+          bool isUpdateSuccess = await UserService().updateAvatar(
+            widget.user.userId!,
+            widget.user.accessToken!,
+            _image!,
+          );
+          if (isUpdateSuccess) {
+            showMessageDialog(
+                context, "Update Avatar", "Upload user's avatar successfully!");
+          }
+        } catch (e) {
+          showMessageDialog(
+              context, "Update Avatar", "Update user's avatar failed: $e");
+        }
+      }
+
+      // Update user's information
+      bool isUpdateSuccess = await UserService().updateUserInfo(
+        widget.user.userId!,
+        username.text,
+        fullname.text,
+        email.text,
+        dateBirth.text,
+        phone.text,
+        address.text,
+      );
+      if (isUpdateSuccess) {
+        showMessageDialog(
+            context, "Update Info", "Upload user's info successfully!");
+      }
+    } catch (e) {
       showMessageDialog(
-          context, "Update Info", "Upload user's info successfully!");
+          context, "Update Info", "Update user's info failed: $e");
     }
-  } catch (e) {
-    showMessageDialog(
-        context, "Update Info", "Update user's info failed: $e");
   }
-}
 
   @override
   void initState() {
@@ -132,7 +144,6 @@ class _BodyProfileState extends State<BodyProfile> {
         children: [
           Container(
             margin: const EdgeInsets.only(bottom: 5),
-            // It will cover 20% of our total height
             height: orientation == Orientation.portrait
                 ? SizeConfig.screenHeight * 0.3
                 : SizeConfig.screenHeight * 0.6,
@@ -186,7 +197,8 @@ class _BodyProfileState extends State<BodyProfile> {
                               : widget.user.image != null
                                   ? DecorationImage(
                                       image: NetworkImage(
-                                        ApiConstants.getAvtUserEndpoint + widget.user.image!,
+                                        ApiConstants.getAvtUserEndpoint +
+                                            widget.user.image!,
                                       ),
                                       fit: BoxFit.fill,
                                     )
@@ -210,7 +222,6 @@ class _BodyProfileState extends State<BodyProfile> {
               ],
             ),
           ),
-          // Main profile user
           Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: kDefaultPadding, vertical: 5),

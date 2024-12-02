@@ -38,7 +38,7 @@ class HeaderWithSearchBox extends StatelessWidget {
               children: [
                 Text(
                   text,
-                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 // const Spacer(),
