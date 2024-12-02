@@ -425,7 +425,7 @@ class _CheckBMIScreenState extends State<CheckBMIScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: DefaultButton(
-                  text: "Check BMI",
+                  text: "Kiểm tra BMI",
                   press: () {
                     if (selectedHeightUnit == "cm" &&
                         selectedWeightUnit == "lbs") {
