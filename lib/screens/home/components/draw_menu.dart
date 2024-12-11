@@ -7,6 +7,7 @@ import 'package:food_nutrition_app/models/user.dart';
 import 'package:food_nutrition_app/screens/home/components/list_view_menu_item.dart';
 import 'package:food_nutrition_app/screens/login_register/login_screen.dart';
 import 'package:food_nutrition_app/screens/profile/profile_screen.dart';
+import 'package:food_nutrition_app/screens/settings/settings_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,8 +30,8 @@ Drawer drawMenu(
                     ? BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: NetworkImage(
-                              ApiConstants.getAvtUserEndpoint + user!.image.toString()),
+                          image: NetworkImage(ApiConstants.getAvtUserEndpoint +
+                              user!.image.toString()),
                           fit: BoxFit.fill,
                         ),
                       )
@@ -99,7 +100,12 @@ Drawer drawMenu(
                   Icons.settings,
                   size: 30,
                 ),
-                press: () {},
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SettingsScreen(user: user!)));
+                },
               ),
               const SizedBox(height: 20),
               ListviewMenuItem(
