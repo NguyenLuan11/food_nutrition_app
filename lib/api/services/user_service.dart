@@ -195,4 +195,42 @@ class UserService {
       rethrow;
     }
   }
+
+  Future<bool> checkCorrectPass(int id, String password) async {
+    try {
+      final url = Uri.parse(
+          "$baseUrlPrefix${ApiConstants.checkPassEndpoint}${id.toString()}");
+      final body = jsonEncode({"password": password});
+      final response = await http.post(url, headers: headers, body: body);
+      if (response.statusCode == 200) {
+        print("User's password successfully!");
+        return true;
+      } else {
+        final messageResponse = messageFromJson(response.body);
+        throw messageResponse.message;
+      }
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<bool> updatePass(int id, String password) async {
+    try {
+      final url = Uri.parse(
+          "$baseUrlPrefix${ApiConstants.updatePassEndpoint}${id.toString()}");
+      final body = jsonEncode({"password": password});
+      final response = await http.put(url, headers: headers, body: body);
+      if (response.statusCode == 200) {
+        print("Update user's password successfully!");
+        return true;
+      } else {
+        final messageResponse = messageFromJson(response.body);
+        throw messageResponse.message;
+      }
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
 }

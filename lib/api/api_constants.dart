@@ -10,6 +10,8 @@ class ApiConstants {
   static String refreshTokenEndpoint = 'refresh-token';
   static String uploadAvtUsersEndpoint = 'user/upload-avt/';
   static String userEndpoint = 'user/';
+  static String checkPassEndpoint = 'user/checkpass/';
+  static String updatePassEndpoint = 'user/updatepass/';
   static String getAvtUserEndpoint = '$baseUrl${urlPrefixUser}user/images/';
 
   // User - BMI
