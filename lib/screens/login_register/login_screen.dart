@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const SocialButton(),
                                 const SizedBox(height: 20),
                                 RedirectAuthWithText(
-                                  text: "Don’t have an account ?",
+                                  text: "Bạn chưa có tài khoản ?",
                                   colorText: Colors.white,
                                   press: () {
                                     Navigator.push(
@@ -161,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     );
                                   },
-                                  textBtn: "Sign Up",
+                                  textBtn: "Đăng ký",
                                   colorTextBtn: Colors.red,
                                 ),
                               ],

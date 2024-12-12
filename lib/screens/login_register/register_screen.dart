@@ -153,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 // const SocialButton(),
                                 const SizedBox(height: 20),
                                 RedirectAuthWithText(
-                                  text: "Already have an account ?",
+                                  text: "Bạn đã có tài khoản ?",
                                   colorText: kTextColor,
                                   press: () {
                                     Navigator.push(
@@ -164,7 +164,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ),
                                     );
                                   },
-                                  textBtn: "Login",
+                                  textBtn: "Đăng nhập",
                                   colorTextBtn: Colors.blue,
                                 ),
                               ],
