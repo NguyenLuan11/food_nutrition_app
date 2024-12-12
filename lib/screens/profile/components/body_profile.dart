@@ -98,8 +98,8 @@ class _BodyProfileState extends State<BodyProfile> {
             _image!,
           );
           if (isUpdateSuccess) {
-            showMessageDialog(
-                context, "Update Avatar", "Upload user's avatar successfully!");
+            showMessageDialog(context, "Cập nhật ảnh đại diện",
+                "Cập nhật ảnh đại diện thành công!");
           }
         } catch (e) {
           showMessageDialog(
@@ -119,7 +119,7 @@ class _BodyProfileState extends State<BodyProfile> {
       );
       if (isUpdateSuccess) {
         showMessageDialog(
-            context, "Update Info", "Upload user's info successfully!");
+            context, "cập nhật thông tin", "Cập nhật thông tin thành công!");
       }
     } catch (e) {
       showMessageDialog(

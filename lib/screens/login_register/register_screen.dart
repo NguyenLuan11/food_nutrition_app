@@ -53,12 +53,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
           await showMessageDialog(context, "Register Failed!", e.toString());
         }
       } else {
-        await showMessageDialog(context, "Register Failed!",
-            "Password must be longer than or equal to 8 characters!");
+        await showMessageDialog(
+            context, "Đăng ký thất bại!", "Mật khẩu phải từ 8 kí tự trở lên!");
       }
     } else {
-      await showMessageDialog(
-          context, "Register Failed!", "Password mismatch error!");
+      await showMessageDialog(context, "Đăng ký thất bại!",
+          "Mật khẩu và mật khẩu xác nhận không khớp!");
     }
   }
 

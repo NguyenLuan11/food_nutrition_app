@@ -22,7 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Profile",
+          "Tài khoản người dùng",
           style: TextStyle(color: kTextColor),
         ),
         backgroundColor: kBackgroundColor,

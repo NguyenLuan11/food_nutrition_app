@@ -25,9 +25,9 @@ class _CheckBMIScreenState extends State<CheckBMIScreen> {
   TextEditingController _lbsWeightController = TextEditingController();
   TextEditingController _kgsWeightController = TextEditingController();
   List<String> heightUnits = ['cm', 'ft.in'];
-  List<String> weightUnits = ['lbs', 'kgs'];
+  List<String> weightUnits = ['kgs', 'lbs'];
   String selectedHeightUnit = 'cm';
-  String selectedWeightUnit = 'lbs';
+  String selectedWeightUnit = 'kgs';
 
   @override
   void initState() {

@@ -40,7 +40,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         });
       } else {
         await showMessageDialog(
-            context, "Wrong Password!", "Password is not correct!");
+            context, "Sai mật khẩu!", "Mật khẩu không chính xác!");
       }
     } catch (e) {
       await showMessageDialog(context, "Check Password Failed!", e.toString());
@@ -59,8 +59,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               isCorrectPass = !isCorrectPass;
             });
 
-            await showMessageDialog(context, "Update Password",
-                "Your password be updated successfully!");
+            await showMessageDialog(context, "Đổi mật khẩu",
+                "Thay đổi mật khẩu thành công! Vui lòng đăng nhập lại phiên!");
 
             SharedPreferences pref = await SharedPreferences.getInstance();
             pref.remove("userId");
@@ -76,12 +76,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               context, "Update Password Failed!", e.toString());
         }
       } else {
-        await showMessageDialog(context, "Update Password Failed!",
-            "Password must be longer than or equal to 8 characters!");
+        await showMessageDialog(context, "Đổi mật khẩu lỗi!",
+            "Mật khẩu phải dài hơn hoặc bằng 8 kí tự!");
       }
     } else {
-      await showMessageDialog(
-          context, "Update Password Failed!", "Password mismatch error!");
+      await showMessageDialog(context, "Đổi mật khẩu lỗi!",
+          "Mật khẩu mới và mật khẩu xác nhận không khớp!");
     }
   }
 
