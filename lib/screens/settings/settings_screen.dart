@@ -6,6 +6,7 @@ import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/models/user.dart';
 import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
 import 'package:food_nutrition_app/screens/home/components/list_view_menu_item.dart';
+import 'package:food_nutrition_app/screens/settings/change_password_screen.dart';
 import 'package:food_nutrition_app/size_config.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -123,7 +124,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Icons.password,
                         size: 30,
                       ),
-                      press: () {},
+                      press: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ChangePasswordScreen(user: widget.user)));
+                      },
                     ),
                   ],
                 ),
