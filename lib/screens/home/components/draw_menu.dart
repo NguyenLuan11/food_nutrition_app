@@ -6,6 +6,7 @@ import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/models/user.dart';
 import 'package:food_nutrition_app/screens/home/components/list_view_menu_item.dart';
 import 'package:food_nutrition_app/screens/home/components/show_confirm_dialog.dart';
+import 'package:food_nutrition_app/screens/login_register/components/show_message_dialog.dart';
 import 'package:food_nutrition_app/screens/login_register/login_screen.dart';
 import 'package:food_nutrition_app/screens/profile/profile_screen.dart';
 import 'package:food_nutrition_app/screens/settings/settings_screen.dart';
@@ -128,6 +129,9 @@ Drawer drawMenu(
                     if (googleSignIn != null) {
                       await googleSignIn.signOut();
                     }
+
+                    await showMessageDialog(context, "Đăng xuất",
+                        "Tạm biệt, hẹn gặp lại ${user?.userName}!");
 
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
