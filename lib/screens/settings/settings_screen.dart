@@ -5,6 +5,7 @@ import 'package:food_nutrition_app/api/api_constants.dart';
 import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/models/user.dart';
 import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
+import 'package:food_nutrition_app/screens/home/components/list_view_menu_item.dart';
 import 'package:food_nutrition_app/size_config.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -106,8 +107,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   borderRadius: const BorderRadius.all(
                       Radius.circular(kDefaultPadding / 2)),
                 ),
-                child: const Column(
-                  children: [],
+                child: Column(
+                  children: [
+                    Text(
+                      "Bảo mật".toUpperCase(),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: kDefaultPadding / 2),
+                    ListviewMenuItem(
+                      text: 'Đổi mật khẩu',
+                      icon: const Icon(
+                        Icons.password,
+                        size: 30,
+                      ),
+                      press: () {},
+                    ),
+                  ],
                 ),
               ),
             ],

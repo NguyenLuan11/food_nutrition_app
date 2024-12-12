@@ -1,10 +1,11 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:food_nutrition_app/api/api_constants.dart';
 import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/models/user.dart';
 import 'package:food_nutrition_app/screens/home/components/list_view_menu_item.dart';
+import 'package:food_nutrition_app/screens/home/components/show_confirm_dialog.dart';
 import 'package:food_nutrition_app/screens/login_register/login_screen.dart';
 import 'package:food_nutrition_app/screens/profile/profile_screen.dart';
 import 'package:food_nutrition_app/screens/settings/settings_screen.dart';
@@ -116,24 +117,24 @@ Drawer drawMenu(
                 ),
                 press: () async {
                   // Handle logout button
+                  await showConfirmDialog(context, "Đăng xuất",
+                      "Bạn có muốn đăng xuất?", "Đồng ý", "Hủy", () async {
+                    // Logout
+                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    pref.remove("userId");
+                    pref.remove("accessToken");
 
-                  // Logout
-                  SharedPreferences pref =
-                      await SharedPreferences.getInstance();
-                  pref.remove("userId");
-                  pref.remove("accessToken");
+                    if (googleSignIn != null) {
+                      await googleSignIn.signOut();
+                    }
 
-                  if (googleSignIn != null) {
-                    googleSignIn.signOut();
-                  }
-
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()),
-                  );
-
-                  // Navigator.pop(context);
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()),
+                      (Route<dynamic> route) => false,
+                    );
+                  });
                 },
               ),
             ],
