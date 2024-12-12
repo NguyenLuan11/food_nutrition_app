@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:food_nutrition_app/local_components/default_button.dart';
 import 'package:food_nutrition_app/screens/check_BMI/components/calculatedBMI.dart';
 import 'package:food_nutrition_app/screens/check_BMI/components/commentsBMI.dart';
-import 'package:food_nutrition_app/screens/check_BMI/meal_plan_screem.dart';
+import 'package:food_nutrition_app/screens/check_BMI/meal_plan_screen.dart';
 import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
 import 'package:food_nutrition_app/screens/login_register/components/show_message_dialog.dart';
 import 'package:food_nutrition_app/size_config.dart';
