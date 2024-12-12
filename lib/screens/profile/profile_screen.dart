@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:food_nutrition_app/contants.dart';
+import 'package:food_nutrition_app/local_components/loading_animation.dart';
 import 'package:food_nutrition_app/models/user.dart';
 import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
 import 'package:food_nutrition_app/screens/profile/components/body_profile.dart';
@@ -29,12 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: widget.user != null
           ? BodyProfile(user: widget.user)
-          : const Center(
-              child: CircularProgressIndicator(
-                color: kPrimaryColor,
-                backgroundColor: kPrimaryLightColor,
-              ),
-            ),
+          : const LoadingAnimation(),
       bottomNavigationBar: const BottomNavbar(),
     );
   }

@@ -25,7 +25,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       backgroundColor: Colors.green[50],
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: const Text("Cài đặt"),
       ),
       bottomNavigationBar: const BottomNavbar(),
       body: Padding(

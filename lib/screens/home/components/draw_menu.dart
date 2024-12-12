@@ -81,7 +81,7 @@ Drawer drawMenu(
           child: Column(
             children: [
               ListviewMenuItem(
-                text: 'Profile',
+                text: 'Tài khoản',
                 icon: const Icon(
                   Icons.account_circle_rounded,
                   size: 30,
@@ -95,7 +95,7 @@ Drawer drawMenu(
               ),
               const SizedBox(height: 20),
               ListviewMenuItem(
-                text: 'Setting',
+                text: 'Cài đặt',
                 icon: const Icon(
                   Icons.settings,
                   size: 30,
@@ -109,12 +109,15 @@ Drawer drawMenu(
               ),
               const SizedBox(height: 20),
               ListviewMenuItem(
-                text: 'Logout',
+                text: 'Đăng xuất',
                 icon: const Icon(
                   Icons.logout_rounded,
                   size: 30,
                 ),
                 press: () async {
+                  // Handle logout button
+
+                  // Logout
                   SharedPreferences pref =
                       await SharedPreferences.getInstance();
                   pref.remove("userId");
