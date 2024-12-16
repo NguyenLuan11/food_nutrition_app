@@ -105,8 +105,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ? Container(
                       padding: const EdgeInsets.all(kDefaultPadding / 1.5),
                       height: orientation == Orientation.portrait
-                          ? SizeConfig.screenHeight * 0.19
-                          : SizeConfig.screenHeight * 0.42,
+                          ? SizeConfig.screenHeight * 0.22
+                          : SizeConfig.screenHeight * 0.43,
                       width: SizeConfig.screenWidth * 0.9,
                       decoration: const BoxDecoration(
                         color: Colors.white,
@@ -132,8 +132,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   : Container(
                       padding: const EdgeInsets.all(kDefaultPadding / 1.5),
                       height: orientation == Orientation.portrait
-                          ? SizeConfig.screenHeight * 0.28
-                          : SizeConfig.screenHeight * 0.6,
+                          ? SizeConfig.screenHeight * 0.3
+                          : SizeConfig.screenHeight * 0.65,
                       width: SizeConfig.screenWidth * 0.9,
                       decoration: const BoxDecoration(
                         color: Colors.white,
