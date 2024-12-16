@@ -91,6 +91,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     var orientation = MediaQuery.of(context).orientation;
 
     return Scaffold(
+      backgroundColor: Colors.green[100],
       appBar: AppBar(title: const Text("Đổi mật khẩu")),
       bottomNavigationBar: const BottomNavbar(),
       body: SingleChildScrollView(
@@ -107,9 +108,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           ? SizeConfig.screenHeight * 0.19
                           : SizeConfig.screenHeight * 0.42,
                       width: SizeConfig.screenWidth * 0.9,
-                      decoration: BoxDecoration(
-                        color: Colors.green[100],
-                        borderRadius: const BorderRadius.all(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
                             Radius.circular(kDefaultPadding / 2)),
                       ),
                       child: Column(
@@ -134,9 +135,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           ? SizeConfig.screenHeight * 0.28
                           : SizeConfig.screenHeight * 0.6,
                       width: SizeConfig.screenWidth * 0.9,
-                      decoration: BoxDecoration(
-                        color: Colors.green[100],
-                        borderRadius: const BorderRadius.all(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
                             Radius.circular(kDefaultPadding / 2)),
                       ),
                       child: Column(
