@@ -114,7 +114,7 @@ class _ListFoodsScreenState extends State<ListFoodsScreen> {
             itemCount: foundFoods.length,
             itemBuilder: (context, index) {
               return SizedBox(
-                height: orientation == Orientation.portrait ? 220 : 280,
+                height: orientation == Orientation.portrait ? 235 : 280,
                 child: Card(
                   elevation: 3,
                   color: const Color.fromARGB(255, 219, 247, 216),

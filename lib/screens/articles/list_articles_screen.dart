@@ -108,7 +108,7 @@ class _ListArticlesScreenState extends State<ListArticlesScreen> {
             itemCount: foundArticles.length,
             itemBuilder: (context, index) {
               return SizedBox(
-                height: 230,
+                height: 263,
                 child: Card(
                   elevation: 3,
                   color: const Color.fromARGB(255, 219, 247, 216),
@@ -146,8 +146,8 @@ class _ListArticlesScreenState extends State<ListArticlesScreen> {
                               Hero(
                                 tag: foundArticles[index].title,
                                 child: Image.network(
-                                  ApiConstants.getThumbnailArticleEndpoint + foundArticles[index]
-                                      .thumbnail.toString(),
+                                  ApiConstants.getThumbnailArticleEndpoint +
+                                      foundArticles[index].thumbnail.toString(),
                                   width: SizeConfig.screenWidth * 0.26,
                                 ),
                               ),
