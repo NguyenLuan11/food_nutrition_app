@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
+import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/local_components/loading_animation.dart';
 import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
 import 'package:food_nutrition_app/screens/home/components/header_with_searchbox.dart';
@@ -115,7 +116,7 @@ class _ListNutrientsScreenState extends State<ListNutrientsScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   margin: const EdgeInsets.symmetric(
                     vertical: 8,
-                    horizontal: 15,
+                    horizontal: kDefaultPadding,
                   ),
                   child: InkWell(
                     onTap: () {

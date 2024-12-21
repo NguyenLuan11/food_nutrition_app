@@ -41,28 +41,35 @@ class _DetailsNutrientScreenState extends State<DetailsNutrientScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    var orientation = MediaQuery.of(context).orientation;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(natureName),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: kDefaultPadding, vertical: kDefaultPadding * 1.5),
+          padding: EdgeInsets.symmetric(
+              horizontal: orientation == Orientation.portrait
+                  ? kDefaultPadding
+                  : kDefaultPadding * 2,
+              vertical: kDefaultPadding * 1.5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.screenWidth * 0.22),
-                child: Text(
-                  widget.nutrient.nutrientName,
-                  style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  const Spacer(),
+                  Text(
+                    widget.nutrient.nutrientName,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
+                  const Spacer(),
+                ],
               ),
               const SizedBox(height: 15),
               const Text(
