@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/local_components/loading_animation.dart';
 import 'package:food_nutrition_app/screens/foods/components/details_food_screen.dart';
 import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
@@ -103,6 +104,8 @@ class _ListFoodsScreenState extends State<ListFoodsScreen> {
 
   FutureBuilder<dynamic> showListFoods() {
     SizeConfig().init(context);
+    var orientation = MediaQuery.of(context).orientation;
+
     return FutureBuilder(
       future: getListFoods(),
       builder: (context, snapshot) {
@@ -111,7 +114,7 @@ class _ListFoodsScreenState extends State<ListFoodsScreen> {
             itemCount: foundFoods.length,
             itemBuilder: (context, index) {
               return SizedBox(
-                height: 230,
+                height: orientation == Orientation.portrait ? 220 : 280,
                 child: Card(
                   elevation: 3,
                   color: const Color.fromARGB(255, 219, 247, 216),
@@ -119,7 +122,7 @@ class _ListFoodsScreenState extends State<ListFoodsScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   margin: const EdgeInsets.symmetric(
                     vertical: 8,
-                    horizontal: 15,
+                    horizontal: kDefaultPadding,
                   ),
                   child: InkWell(
                     onTap: () {
@@ -149,7 +152,8 @@ class _ListFoodsScreenState extends State<ListFoodsScreen> {
                               Hero(
                                 tag: foundFoods[index].foodName,
                                 child: Image.network(
-                                  ApiConstants.getImgFoodEndpoint + foundFoods[index].image.toString(),
+                                  ApiConstants.getImgFoodEndpoint +
+                                      foundFoods[index].image.toString(),
                                   width: SizeConfig.screenWidth * 0.26,
                                 ),
                               ),
