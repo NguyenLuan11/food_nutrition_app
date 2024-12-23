@@ -112,6 +112,71 @@ class UserService {
     }
   }
 
+  Future<int?> getIdUserByUserName(String userName) async {
+    try {
+      final url =
+          Uri.parse("$baseUrlPrefix${ApiConstants.userEndpoint}$userName");
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final user = await userFromJson(response.body);
+        return user.userId;
+      } else {
+        final messageResponse = messageFromJson(response.body);
+        throw messageResponse.message;
+      }
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<bool> sendOTP(String email) async {
+    try {
+      final url = Uri.parse("$baseUrlPrefix${ApiConstants.sendOTPEndpoint}");
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"email": email}),
+      );
+
+      if (response.statusCode == 200) {
+        // log("OTP sent successfully to $email");
+        return true;
+      } else {
+        final messageResponse = messageFromJson(response.body);
+        throw messageResponse.message;
+      }
+    } catch (e) {
+      log("Error in sendOTP: ${e.toString()}");
+      rethrow;
+    }
+  }
+
+  Future<bool> verifyOTP(String email, String otp) async {
+    try {
+      final url = Uri.parse("$baseUrlPrefix${ApiConstants.verifyOTPEndpoint}");
+
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "email": email,
+          "otp": otp,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        final messageResponse = messageFromJson(response.body);
+        throw messageResponse.message;
+      }
+    } catch (e) {
+      log("Error in checkCorrectOTP: ${e.toString()}");
+      rethrow;
+    }
+  }
+
   // Future<bool> updateAvatar(
   //     int id, String accessToken, String base64Image) async {
   //   try {
@@ -215,7 +280,11 @@ class UserService {
     }
   }
 
-  Future<bool> updatePass(int id, String password) async {
+  Future<bool> updatePass(int? id, String password) async {
+    if (id == null) {
+      log("ID is required!");
+      return false;
+    }
     try {
       final url = Uri.parse(
           "$baseUrlPrefix${ApiConstants.updatePassEndpoint}${id.toString()}");

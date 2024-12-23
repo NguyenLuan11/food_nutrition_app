@@ -11,6 +11,7 @@ import 'package:food_nutrition_app/screens/login_register/components/PasswordFie
 import 'package:food_nutrition_app/screens/login_register/components/TextField_design.dart';
 import 'package:food_nutrition_app/screens/login_register/components/redirect_auth_with_text.dart';
 import 'package:food_nutrition_app/screens/login_register/register_screen.dart';
+import 'package:food_nutrition_app/screens/settings/change_password_screen.dart';
 import 'package:food_nutrition_app/size_config.dart';
 import 'package:food_nutrition_app/utils/crypto_pass.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -144,6 +145,37 @@ class _LoginScreenState extends State<LoginScreen> {
                                   text: "LOGIN",
                                   press: onLoginBtnPress,
                                   backgroundColorBtn: kPrimaryColor,
+                                ),
+                                const SizedBox(height: 20),
+                                // Forget password button
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Expanded(child: Divider()),
+                                    const SizedBox(width: 16),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ChangePasswordScreen(
+                                                        isForgetPass: true)));
+                                      },
+                                      style: TextButton.styleFrom(
+                                        foregroundColor: Colors.red,
+                                        textStyle: const TextStyle(
+                                          // decoration: TextDecoration.underline,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      child: const Text("Quên mật khẩu?"),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    const Expanded(child: Divider()),
+                                  ],
                                 ),
                                 const SizedBox(height: 20),
                                 const SignInWithText(text: "Or Sign in with"),
