@@ -98,7 +98,7 @@ class _DetailsNutrientScreenState extends State<DetailsNutrientScreen> {
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
-                "${widget.nutrient.needed.toString()} g/ngày",
+                widget.nutrient.needed,
                 style: const TextStyle(fontSize: 18),
                 textAlign: TextAlign.justify,
               ),

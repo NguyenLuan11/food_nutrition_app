@@ -13,7 +13,7 @@ class NutrientModel {
   String function;
   DateTime? modifiedDate;
   int? natureId;
-  double needed;
+  String needed;
   int? nutrientId;
   String nutrientName;
   String? shortagePrevention;
@@ -44,7 +44,7 @@ class NutrientModel {
             ? DateTime.parse(json["modified_date"])
             : null,
         natureId: json["natureID"],
-        needed: json["needed"]?.toDouble(),
+        needed: json["needed"],
         nutrientId: json["nutrientID"],
         nutrientName: json["nutrientName"],
         shortagePrevention: json["shortagePrevention"],

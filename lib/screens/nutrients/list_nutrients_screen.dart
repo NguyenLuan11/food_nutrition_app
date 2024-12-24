@@ -144,7 +144,7 @@ class _ListNutrientsScreenState extends State<ListNutrientsScreen> {
                                 ),
                               ),
                               Text(
-                                "${foundNutrients[index].needed.toString()} g/day",
+                                foundNutrients[index].needed,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
