@@ -2,6 +2,19 @@ class ApiConstants {
   static String baseUrl = 'http://fn-api.local:5007/api';
   // static String baseUrl = 'http://192.168.1.8:5007/api';
 
+  static String urlPrefixComment = '/comments-management/';
+  // CommentFood
+  static String addCommentFoodEndpoint = 'add-comment-food';
+  static String getAllCommentsFoodByIdEndpoint = 'comments/food/';
+
+  // CommentNutrient
+  static String addCommentNutrientEndpoint = 'add-comment-nutrient';
+  static String getAllCommentsNutrientByIdEndpoint = 'comments/nutrient/';
+
+  // CommentArticle
+  static String addCommentArticleEndpoint = 'add-comment-article';
+  static String getAllCommentsArticleByIdEndpoint = 'comments/article/';
+
   // Users
   static String urlPrefixUser = '/user-management/';
   static String loginUsersEndpoint = 'login';
@@ -15,19 +28,6 @@ class ApiConstants {
   static String checkPassEndpoint = 'user/checkpass/';
   static String updatePassEndpoint = 'user/updatepass/';
   static String getAvtUserEndpoint = '$baseUrl${urlPrefixUser}user/images/';
-
-  static String urlPrefixComment = '/comments-management/';
-  // CommentFood
-  static String addCommentFoodEndpoint = 'add-comment-food';
-  static String getAllCommentsFoodByIdEndpoint = 'comments/food/';
-
-  // CommentNutrient
-  static String addCommentNutrientEndpoint = 'add-comment-nutrient';
-  static String getAllCommentsNutrientByIdEndpoint = 'comments/nutrient/';
-
-  // CommentArticle
-  static String addCommentArticleEndpoint = 'add-comment-article';
-  static String getAllCommentsArticleByIdEndpoint = 'comments/article/';
 
   // User - BMI
   static String urlPrefixUserBMI = '/userBMI-management/';
