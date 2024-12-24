@@ -1,14 +1,20 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:food_nutrition_app/api/api_constants.dart';
-import 'package:food_nutrition_app/api/services/category_service.dart';
 import 'package:food_nutrition_app/contants.dart';
+import 'package:food_nutrition_app/local_components/default_button.dart';
 import 'package:food_nutrition_app/models/article.dart';
+import 'package:food_nutrition_app/models/comment_article.dart';
 import 'package:food_nutrition_app/screens/home/components/bottom_navbar.dart';
+import 'package:food_nutrition_app/screens/login_register/components/show_message_dialog.dart';
 import 'package:food_nutrition_app/size_config.dart';
 import 'package:food_nutrition_app/utils/check_token_expired.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailsArticleScreen extends StatefulWidget {
   const DetailsArticleScreen({super.key, required this.article});
@@ -20,7 +26,10 @@ class DetailsArticleScreen extends StatefulWidget {
 }
 
 class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
-  late String categoryName = "";
+  List<CommentArticle> comments = [];
+  bool isLoading = true;
+
+  TextEditingController commentController = TextEditingController();
 
   @override
   void initState() {
@@ -28,18 +37,76 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
 
     checkCurrentToken(context);
 
-    getCategoryName();
+    fetchComments();
   }
 
-  void getCategoryName() async {
-    // print("categoryId: ${widget.article.categoryId}");
-    if (widget.article.categoryId != null) {
-      String cateName = await CategoryService()
-          .getcategoryNameById(widget.article.categoryId!);
+  Future<void> fetchComments() async {
+    try {
+      final response = await http.get(Uri.parse(
+          "${ApiConstants.baseUrl}${ApiConstants.urlPrefixComment}${ApiConstants.getAllCommentsArticleByIdEndpoint}${widget.article.articleId.toString()}"));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        setState(() {
+          comments =
+              data.map((comment) => CommentArticle.fromJson(comment)).toList();
+          isLoading = false;
+        });
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } catch (e) {
       setState(() {
-        categoryName = cateName;
+        isLoading = false;
       });
-      // print("categoryname: $categoryName");
+    }
+  }
+
+  Future<void> submitComment() async {
+    if (commentController.text.isEmpty) {
+      showMessageDialog(context, "Bình luận trống", "Vui lòng nhập bình luận!");
+      return;
+    }
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userID = prefs.getInt("userId");
+    var articleID = widget.article.articleId;
+
+    // Tạo đối tượng CommentArticle
+    CommentArticle newComment = CommentArticle(
+      userId: userID,
+      articleId: articleID,
+      content: commentController.text,
+    );
+
+    // Chuyển đối tượng CommentArticle thành chuỗi JSON
+    String commentJson = commentArticleToJson(newComment);
+
+    // Gửi yêu cầu POST đến API
+    final response = await http.post(
+      Uri.parse(
+          "${ApiConstants.baseUrl}${ApiConstants.urlPrefixComment}${ApiConstants.addCommentArticleEndpoint}"),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: commentJson,
+    );
+
+    // Kiểm tra mã phản hồi
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final CommentArticle addedComment = CommentArticle.fromJson(responseData);
+
+      setState(() {
+        comments.add(addedComment);
+      });
+
+      commentController.clear();
+    } else {
+      showMessageDialog(
+          context, "Đăng bình luận lỗi", response.body.toString());
     }
   }
 
@@ -48,7 +115,7 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(categoryName),
+        title: Text(widget.article.title),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -56,7 +123,7 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
               horizontal: kDefaultPadding, vertical: kDefaultPadding * 1.5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 widget.article.title,
@@ -72,7 +139,8 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
                 child: Hero(
                   tag: widget.article.title,
                   child: Image.network(
-                    ApiConstants.getThumbnailArticleEndpoint + widget.article.thumbnail.toString(),
+                    ApiConstants.getThumbnailArticleEndpoint +
+                        widget.article.thumbnail.toString(),
                     width: SizeConfig.screenWidth * 0.6,
                   ),
                 ),
@@ -111,6 +179,92 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
                   ),
                 ),
               ),
+              const SizedBox(height: 30),
+              const Divider(
+                color: Colors.grey,
+                thickness: 1,
+                height: 30,
+              ),
+              isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(color: kPrimaryColor))
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Bình luận:",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10),
+                        comments.isEmpty
+                            ? const Padding(
+                                padding: EdgeInsets.only(top: 10),
+                                child: Center(
+                                    child: Text("Chưa có bình luận nào!",
+                                        style: TextStyle(
+                                            fontSize: 18, color: Colors.grey))),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: comments.length,
+                                itemBuilder: (context, index) {
+                                  final comment = comments[index];
+                                  return Card(
+                                    color: kPrimaryLightColor,
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    child: ListTile(
+                                      textColor: kTextColor,
+                                      leading: CircleAvatar(
+                                        backgroundImage: comment.image != null
+                                            ? NetworkImage(ApiConstants
+                                                    .getAvtUserEndpoint +
+                                                comment.image!)
+                                            : const AssetImage(
+                                                    'assets/images/default-profile-picture.png')
+                                                as ImageProvider,
+                                      ),
+                                      title:
+                                          Text(comment.userName ?? 'Unknown'),
+                                      subtitle: Text(comment.content),
+                                      trailing: Text(DateFormat("dd/MM/yyyy")
+                                          .format(comment.createdDate!)),
+                                    ),
+                                  );
+                                },
+                              ),
+                        const SizedBox(height: 20),
+                        // Box for writing a comment
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.grey, width: 1),
+                          ),
+                          child: TextField(
+                            controller: commentController,
+                            decoration: const InputDecoration(
+                              hintText: 'Viết bình luận...',
+                              border: InputBorder.none,
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 10),
+                            ),
+                            maxLines: 2,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        DefaultButton(
+                          text: 'Đăng bình luận',
+                          press: submitComment,
+                          backgroundColorBtn: blueColor,
+                          heightBtn: 30,
+                          fontSizeText: 15,
+                        ),
+                      ],
+                    ),
             ],
           ),
         ),
