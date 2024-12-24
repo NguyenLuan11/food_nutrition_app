@@ -29,7 +29,7 @@ class CommentFood {
         foodId: json["foodID"],
         userId: json["userID"],
         userName: json["userName"],
-        image: json["image"],
+        image: json["userImage"],
         content: json["content"],
         createdDate: json["created_date"] != null
             ? DateTime.parse(json["created_date"])
