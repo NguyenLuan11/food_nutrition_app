@@ -24,13 +24,12 @@ class CommentArticle {
     this.createdDate,
   });
 
-  factory CommentArticle.fromJson(Map<String, dynamic> json) =>
-      CommentArticle(
+  factory CommentArticle.fromJson(Map<String, dynamic> json) => CommentArticle(
         commentId: json["commentID"],
         articleId: json["articleID"],
         userId: json["userID"],
         userName: json["userName"],
-        image: json["image"],
+        image: json["userImage"],
         content: json["content"],
         createdDate: json["created_date"] != null
             ? DateTime.parse(json["created_date"])
