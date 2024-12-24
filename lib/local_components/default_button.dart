@@ -5,18 +5,20 @@ class DefaultButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.press,
-    required this.backgroundColorBtn,
+    required this.backgroundColorBtn, this.heightBtn, this.fontSizeText,
   });
 
   final String text;
   final VoidCallback press;
   final Color backgroundColorBtn;
+  final double? heightBtn;
+  final double? fontSizeText;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 60,
+      height: heightBtn ?? 60,
       child: TextButton(
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
@@ -24,8 +26,8 @@ class DefaultButton extends StatelessWidget {
           ),
           backgroundColor: backgroundColorBtn,
           foregroundColor: Colors.white,
-          textStyle: const TextStyle(
-            fontSize: 25,
+          textStyle: TextStyle(
+            fontSize: fontSizeText ?? 25,
           ),
         ),
         onPressed: press,
