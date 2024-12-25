@@ -280,9 +280,26 @@ class _DetailsNutrientScreenState extends State<DetailsNutrientScreen> {
                                       ),
                                       title:
                                           Text(comment.userName ?? 'Unknown'),
-                                      subtitle: Text(comment.content),
-                                      trailing: Text(DateFormat("dd/MM/yyyy")
-                                          .format(comment.createdDate!)),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            comment.content,
+                                            textAlign: TextAlign.justify,
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Text(
+                                            DateFormat("dd/MM/yyyy")
+                                                .format(comment.createdDate!),
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey,
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },
