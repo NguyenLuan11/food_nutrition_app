@@ -8,6 +8,8 @@ String articleToJson(ArticleModel data) => json.encode(data.toJson());
 class ArticleModel {
   int? articleId;
   String? author;
+  String? origin;
+  String? linkOrigin;
   int? categoryId;
   String content;
   DateTime? createdDate;
@@ -19,6 +21,8 @@ class ArticleModel {
   ArticleModel({
     this.articleId,
     this.author,
+    this.origin,
+    this.linkOrigin,
     this.categoryId,
     required this.title,
     required this.content,
@@ -31,6 +35,8 @@ class ArticleModel {
   factory ArticleModel.fromJson(Map<String, dynamic> json) => ArticleModel(
         articleId: json["articleID"],
         author: json["author"],
+        origin: json["origin"],
+        linkOrigin: json["linkOrigin"],
         categoryId: json["categoryID"],
         content: json["content"],
         createdDate: DateTime.parse(json["created_date"]),
@@ -45,6 +51,8 @@ class ArticleModel {
   Map<String, dynamic> toJson() => {
         "articleID": articleId,
         "author": author,
+        "origin": origin,
+        "linkOrigin": linkOrigin,
         "categoryID": categoryId,
         "content": content,
         "created_date":

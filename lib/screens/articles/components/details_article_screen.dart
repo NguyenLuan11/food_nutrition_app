@@ -15,6 +15,7 @@ import 'package:food_nutrition_app/utils/check_token_expired.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailsArticleScreen extends StatefulWidget {
   const DetailsArticleScreen({super.key, required this.article});
@@ -110,6 +111,17 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
     }
   }
 
+  // Hàm mở URL
+  void launchURL() async {
+    var url = widget.article.linkOrigin.toString();
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Không thể mở URL: $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -162,6 +174,28 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
                 padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.4),
                 child: Text(
                   widget.article.author.toString(),
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              // Padding(
+              //   padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.05),
+              //   child: Text(
+              //     widget.article.origin.toString(),
+              //     style: const TextStyle(
+              //       fontSize: 15,
+              //       fontStyle: FontStyle.italic,
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(height: 10),
+              TextButton(
+                onPressed: launchURL,
+                child: Text(
+                  widget.article.origin.toString(),
                   style: const TextStyle(
                     fontSize: 15,
                     fontStyle: FontStyle.italic,
