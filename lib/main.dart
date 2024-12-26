@@ -6,7 +6,7 @@ import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/firebase_options.dart';
 import 'package:food_nutrition_app/screens/splash/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:device_preview/device_preview.dart';
+// import 'package:device_preview/device_preview.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,14 +21,10 @@ void main() async {
   // var accessToken = prefs.getString("accessToken");
   // print("accessToken: $accessToken");
 
-  runApp(
-    DevicePreview(
-      builder: (context) => MyApp(userId: userId),
-      enabled: true,
-    ),
-  );
+  // runApp(DevicePreview(
+  //     builder: (context) => MyApp(userId: userId), enabled: true));
 
-  // runApp(MyApp(userId: userId));
+  runApp(MyApp(userId: userId));
 }
 
 class MyApp extends StatefulWidget {

@@ -1,6 +1,7 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously
+// ignore_for_file: avoid_print, use_build_context_synchronously, deprecated_member_use
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:food_nutrition_app/api/api_constants.dart';
@@ -112,13 +113,14 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
   }
 
   // Hàm mở URL
-  void launchURL() async {
-    var url = widget.article.linkOrigin.toString();
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      throw 'Không thể mở URL: $url';
+  void launchURL(String url) async {
+    try {
+      await launch(
+        url,
+        enableJavaScript: true,
+      );
+    } catch (e) {
+      log("Error: ${e.toString()}");
     }
   }
 
@@ -171,7 +173,7 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
               ),
               const SizedBox(height: 15),
               Padding(
-                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.4),
+                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.2),
                 child: Text(
                   widget.article.author.toString(),
                   style: const TextStyle(
@@ -192,8 +194,8 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
               //   ),
               // ),
               // const SizedBox(height: 10),
-              TextButton(
-                onPressed: launchURL,
+              InkWell(
+                onTap: () => launchURL(widget.article.linkOrigin.toString()),
                 child: Text(
                   widget.article.origin.toString(),
                   style: const TextStyle(
