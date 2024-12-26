@@ -1,6 +1,6 @@
 class ApiConstants {
   // static String baseUrl = 'http://fn-api.local:5007/api';
-  static String baseUrl = 'http://192.168.1.5:5007/api';
+  static String baseUrl = 'http://192.168.62.53:5007/api';
 
   static String urlPrefixComment = '/comments-management/';
   // CommentFood

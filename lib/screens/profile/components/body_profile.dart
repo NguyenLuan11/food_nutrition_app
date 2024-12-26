@@ -17,6 +17,7 @@ import 'package:food_nutrition_app/screens/profile/components/text_form_field_de
 import 'package:food_nutrition_app/size_config.dart';
 import 'package:food_nutrition_app/utils/check_token_expired.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BodyProfile extends StatefulWidget {
   const BodyProfile({super.key, required this.user});
@@ -78,9 +79,11 @@ class _BodyProfileState extends State<BodyProfile> {
   }
 
   void updateProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var accessToken = prefs.getString("accessToken");
     try {
       // Ensure userId and accessToken are not null before proceeding
-      if (widget.user.userId == null || widget.user.accessToken == null) {
+      if (widget.user.userId == null || accessToken == null) {
         showMessageDialog(
           context,
           "Update Avatar",

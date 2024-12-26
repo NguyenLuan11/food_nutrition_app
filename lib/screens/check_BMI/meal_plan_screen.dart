@@ -26,19 +26,18 @@ class MealPlanScreen extends StatefulWidget {
 
 class _MealPlanScreenState extends State<MealPlanScreen> {
   List<FoodModel> listRecommendFoods = [];
+  late Future<void> _getFoodsFuture;
   String note =
       "Lưu ý: Danh sách thực phẩm dưới đây mang tính tham khảo cho người trưởng thành có sức khỏe bình thường và không mắc bệnh nền. Các trường hợp khác cần lưu ý theo chỉ dẫn của bác sỹ!";
 
   @override
   void initState() {
     super.initState();
-
     checkCurrentToken(context);
-
-    getlistRecommendFoods();
+    _getFoodsFuture = getlistRecommendFoods();
   }
 
-  Future getlistRecommendFoods() async {
+  Future<void> getlistRecommendFoods() async {
     try {
       final url = Uri.parse(ApiConstants.baseUrl +
           ApiConstants.urlPrefixFoods +
@@ -52,14 +51,19 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
           final food = FoodModel.fromJson(item);
           listRecommendFoods.add(food);
         }
-        // print("listRecommendFoods length: ${listRecommendFoods.length}");
-        showMessageDialog(context, "Lưu ý!", note);
+        if (mounted) {
+          showMessageDialog(context, "Lưu ý!", note);
+        }
       } else {
         final messageResponse = messageFromJson(response.body);
-        showMessageDialog(context, "Error!", messageResponse.message);
+        if (mounted) {
+          showMessageDialog(context, "Error!", messageResponse.message);
+        }
       }
     } catch (e) {
-      showMessageDialog(context, "Error!", e.toString());
+      if (mounted) {
+        showMessageDialog(context, "Error!", e.toString());
+      }
     }
   }
 
@@ -77,10 +81,10 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
     );
   }
 
-  FutureBuilder<dynamic> showListRecommendFoods() {
+  Widget showListRecommendFoods() {
     SizeConfig().init(context);
-    return FutureBuilder(
-      future: getlistRecommendFoods(),
+    return FutureBuilder<void>(
+      future: _getFoodsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return ListView.builder(
@@ -100,7 +104,6 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
                   ),
                   child: InkWell(
                     onTap: () {
-                      // print("Tap on ${listFoods[index].foodId}");
                       Navigator.push(
                           context,
                           MaterialPageRoute(

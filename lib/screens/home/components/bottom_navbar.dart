@@ -20,7 +20,6 @@ class BottomNavbar extends StatefulWidget {
 
 class _BottomNavbarState extends State<BottomNavbar> {
   late UserModel user;
-  late int flat = 0;
 
   Future<void> getUserById() async {
     try {
@@ -61,10 +60,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
         children: [
           IconButton(
             onPressed: () async {
-              if (flat == 0) {
-                await getUserById();
-                flat++;
-              }
+              await getUserById();
+
+              // log("id: ${user.userId}");
 
               Navigator.push(
                   context,
@@ -91,10 +89,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           ),
           IconButton(
             onPressed: () async {
-              if (flat == 0) {
-                await getUserById();
-                flat++;
-              }
+              await getUserById();
 
               Navigator.push(
                   context,
