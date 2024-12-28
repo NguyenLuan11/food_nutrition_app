@@ -2,6 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/firebase_options.dart';
 import 'package:food_nutrition_app/screens/splash/splash_screen.dart';
@@ -25,6 +26,9 @@ void main() async {
       builder: (context) => MyApp(userId: userId), enabled: true));
 
   // runApp(MyApp(userId: userId));
+
+  // Khóa màn hình ở chế độ dọc
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
 
 class MyApp extends StatefulWidget {
