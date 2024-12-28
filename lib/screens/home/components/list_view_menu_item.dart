@@ -18,17 +18,28 @@ class ListviewMenuItem extends StatelessWidget {
       children: [
         icon,
         const SizedBox(width: 10),
-        TextButton(
-          onPressed: press,
+        InkWell(
+          onTap: () => press,
           child: Text(
             text,
             style: const TextStyle(
-              fontWeight: FontWeight.bold,
               fontSize: 25,
+              fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
           ),
         ),
+        // TextButton(
+        //   onPressed: press,
+        //   child: Text(
+        //     text,
+        //     style: const TextStyle(
+        //       fontWeight: FontWeight.bold,
+        //       fontSize: 25,
+        //       color: Colors.black,
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

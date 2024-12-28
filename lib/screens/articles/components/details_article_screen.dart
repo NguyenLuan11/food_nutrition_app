@@ -183,17 +183,6 @@ class _DetailsArticleScreenState extends State<DetailsArticleScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              // Padding(
-              //   padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.05),
-              //   child: Text(
-              //     widget.article.origin.toString(),
-              //     style: const TextStyle(
-              //       fontSize: 15,
-              //       fontStyle: FontStyle.italic,
-              //     ),
-              //   ),
-              // ),
-              // const SizedBox(height: 10),
               InkWell(
                 onTap: () => launchURL(widget.article.linkOrigin.toString()),
                 child: Text(
