@@ -5,8 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_nutrition_app/api/api_constants.dart';
 import 'package:food_nutrition_app/screens/login_register/components/show_message_dialog.dart';
-import 'package:food_nutrition_app/screens/profile/components/BMI_line_chart/bmi_line_chart.dart';
-import 'package:food_nutrition_app/screens/profile/components/BMI_line_chart/bmi_points.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:food_nutrition_app/api/services/user_service.dart';
 import 'package:food_nutrition_app/contants.dart';
@@ -16,7 +14,6 @@ import 'package:food_nutrition_app/screens/profile/components/date_picker_form_f
 import 'package:food_nutrition_app/screens/profile/components/text_form_field_design.dart';
 import 'package:food_nutrition_app/size_config.dart';
 import 'package:food_nutrition_app/utils/check_token_expired.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BodyProfile extends StatefulWidget {
@@ -50,32 +47,6 @@ class _BodyProfileState extends State<BodyProfile> {
         print('No image selected.');
       }
     });
-  }
-
-  List<double> getDataBMIForLineChart() {
-    final dataBMI = <double>[];
-    // Check if listUserBmi is not null before accessing
-    if (widget.user.listUserBmi != null) {
-      for (var userBMI in widget.user.listUserBmi!) {
-        dataBMI.add(double.parse(userBMI.result.toStringAsFixed(2)));
-      }
-    }
-    return dataBMI;
-  }
-
-  List<String> getBottomTitlesForLineChart() {
-    final bottomTitles = <String>[];
-    // Check if listUserBmi is not null before accessing
-    if (widget.user.listUserBmi != null) {
-      for (var userBMI in widget.user.listUserBmi!) {
-        String dateString = userBMI.checkDate.toString();
-        DateTime parsedDate = DateTime.parse(dateString);
-        String formattedDate = DateFormat('dd/MM').format(parsedDate);
-
-        bottomTitles.add(formattedDate);
-      }
-    }
-    return bottomTitles;
   }
 
   void updateProfile() async {
@@ -232,10 +203,6 @@ class _BodyProfileState extends State<BodyProfile> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                LineChartWidget(
-                    points: bmiPoints(getDataBMIForLineChart()),
-                    bottomTitles: getBottomTitlesForLineChart()),
-                const SizedBox(height: kDefaultPadding),
                 TextFormFieldDesign(
                   initialValue: widget.user.userName,
                   labelText: "User Name",

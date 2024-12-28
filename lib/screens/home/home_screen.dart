@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: user != null ? const Body() : const LoadingAnimation(),
+      body: user != null ? Body(user: user!) : const LoadingAnimation(),
       bottomNavigationBar: const BottomNavbar(),
       drawer: drawMenu(user, widget.googleSignIn, context),
     );
