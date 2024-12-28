@@ -19,7 +19,7 @@ class ListviewMenuItem extends StatelessWidget {
         icon,
         const SizedBox(width: 10),
         InkWell(
-          onTap: () => press,
+          onTap: () => press(),
           child: Text(
             text,
             style: const TextStyle(
