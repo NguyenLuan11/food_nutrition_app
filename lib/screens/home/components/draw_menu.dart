@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:food_nutrition_app/api/api_constants.dart';
 import 'package:food_nutrition_app/contants.dart';
 import 'package:food_nutrition_app/models/user.dart';
+import 'package:food_nutrition_app/screens/articles/list_articles_screen.dart';
+import 'package:food_nutrition_app/screens/foods/list_foods_screen.dart';
 import 'package:food_nutrition_app/screens/home/components/list_view_menu_item.dart';
 import 'package:food_nutrition_app/screens/home/components/show_confirm_dialog.dart';
 import 'package:food_nutrition_app/screens/login_register/components/show_message_dialog.dart';
 import 'package:food_nutrition_app/screens/login_register/login_screen.dart';
+import 'package:food_nutrition_app/screens/nutrients/list_nutrients_screen.dart';
 import 'package:food_nutrition_app/screens/profile/profile_screen.dart';
 import 'package:food_nutrition_app/screens/settings/settings_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -82,6 +85,48 @@ Drawer drawMenu(
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
+              ListviewMenuItem(
+                text: 'Thực phẩm',
+                icon: const Icon(
+                  Icons.food_bank_outlined,
+                  size: 30,
+                ),
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ListFoodsScreen()));
+                },
+              ),
+              const SizedBox(height: 20),
+              ListviewMenuItem(
+                text: 'Chất dinh dưỡng',
+                icon: const Icon(
+                  Icons.nature,
+                  size: 30,
+                ),
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ListNutrientsScreen()));
+                },
+              ),
+              const SizedBox(height: 20),
+              ListviewMenuItem(
+                text: 'Bài báo',
+                icon: const Icon(
+                  Icons.auto_stories_sharp,
+                  size: 30,
+                ),
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ListArticlesScreen()));
+                },
+              ),
+              const SizedBox(height: 20),
               ListviewMenuItem(
                 text: 'Tài khoản',
                 icon: const Icon(
