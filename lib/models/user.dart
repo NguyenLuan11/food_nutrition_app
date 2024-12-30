@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, non_constant_identifier_names
 
 import 'dart:convert';
 
@@ -18,6 +18,10 @@ class UserModel {
   String? image;
   String? photoURL;
   String? password;
+  String? gender;
+  double? weight;
+  double? height;
+  double? ideal_weight;
   List<ListUserBmi>? listUserBmi;
   DateTime? modifiedDate;
   String? phone;
@@ -35,6 +39,10 @@ class UserModel {
     this.image,
     this.photoURL,
     this.password,
+    this.gender,
+    this.weight,
+    this.height,
+    this.ideal_weight,
     this.listUserBmi,
     this.modifiedDate,
     this.phone,
@@ -63,6 +71,10 @@ class UserModel {
         phone: json["phone"],
         userId: json["userID"],
         userName: json["userName"],
+        gender: json["gender"],
+        weight: json["weight"],
+        height: json["height"],
+        ideal_weight: json["ideal_weight"],
       );
 
   Map<String, dynamic> toJson() => {

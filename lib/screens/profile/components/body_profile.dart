@@ -32,6 +32,10 @@ class _BodyProfileState extends State<BodyProfile> {
   TextEditingController email = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController address = TextEditingController();
+  TextEditingController weight = TextEditingController();
+  TextEditingController height = TextEditingController();
+
+  String? genderValue;
 
   File? _image;
   final picker = ImagePicker();
@@ -90,10 +94,13 @@ class _BodyProfileState extends State<BodyProfile> {
         dateBirth.text,
         phone.text,
         address.text,
+        genderValue,
+        double.tryParse(weight.text),
+        double.tryParse(height.text),
       );
       if (isUpdateSuccess) {
         showMessageDialog(
-            context, "cập nhật thông tin", "Cập nhật thông tin thành công!");
+            context, "Cập nhật thông tin", "Cập nhật thông tin thành công!");
       }
     } catch (e) {
       showMessageDialog(
@@ -104,8 +111,10 @@ class _BodyProfileState extends State<BodyProfile> {
   @override
   void initState() {
     super.initState();
-
     checkCurrentToken(context);
+
+    genderValue =
+        widget.user.gender ?? 'male'; // default to 'male' if gender is null
   }
 
   @override
@@ -237,6 +246,52 @@ class _BodyProfileState extends State<BodyProfile> {
                   initialValue: widget.user.address ?? "",
                   labelText: "Address",
                   controller: address,
+                ),
+                const SizedBox(height: kDefaultPadding),
+                TextFormFieldDesign(
+                  initialValue: widget.user.weight?.toString() ?? "",
+                  labelText: "Weight(Kgs)",
+                  controller: weight,
+                ),
+                const SizedBox(height: kDefaultPadding),
+                TextFormFieldDesign(
+                  initialValue: widget.user.height?.toString() ?? "",
+                  labelText: "Height(Cm)",
+                  controller: height,
+                ),
+                const SizedBox(height: kDefaultPadding),
+                DropdownButtonFormField<String>(
+                  value: genderValue,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      genderValue = newValue;
+                    });
+                  },
+                  items: const [
+                    DropdownMenuItem(
+                      value: 'male',
+                      child: Text('Nam', style: TextStyle(fontSize: 18)),
+                    ),
+                    DropdownMenuItem(
+                      value: 'female',
+                      child: Text('Nữ', style: TextStyle(fontSize: 18)),
+                    ),
+                  ],
+                  decoration: InputDecoration(
+                    labelText: "Gender",
+                    labelStyle: const TextStyle(
+                      color: kTextColor,
+                      fontSize: 27,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: const BorderSide(
+                        color: kTextColor,
+                        style: BorderStyle.solid,
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: kDefaultPadding),
                 DefaultButton(

@@ -234,8 +234,17 @@ class UserService {
     }
   }
 
-  Future<bool> updateUserInfo(int id, String userName, String? fullName,
-      String email, String? dateBirth, String? phone, String? address) async {
+  Future<bool> updateUserInfo(
+      int id,
+      String userName,
+      String? fullName,
+      String email,
+      String? dateBirth,
+      String? phone,
+      String? address,
+      String? gender,
+      double? weight,
+      double? height) async {
     try {
       final url = Uri.parse(
           "$baseUrlPrefix${ApiConstants.userEndpoint}${id.toString()}");
@@ -245,7 +254,10 @@ class UserService {
         "email": email,
         "dateBirth": dateBirth,
         "phone": phone,
-        "address": address
+        "address": address,
+        "gender": gender,
+        "weight": weight,
+        "height": height,
       });
       final response = await http.put(url, headers: headers, body: body);
       if (response.statusCode == 200) {
