@@ -82,7 +82,7 @@ class LineChartWidget extends StatelessWidget {
                 "BMI Chart",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              axisNameSize: 25,
+              axisNameSize: 33,
             ),
             leftTitles: const AxisTitles(
               sideTitles: SideTitles(

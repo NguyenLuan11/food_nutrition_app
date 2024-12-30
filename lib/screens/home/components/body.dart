@@ -52,7 +52,7 @@ class Body extends StatelessWidget {
           user.listUserBmi != null
               ? Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: kDefaultPadding / 2,
+                      horizontal: kDefaultPadding / 1.5,
                       vertical: kDefaultPadding),
                   child: LineChartWidget(
                     points: bmiPoints(getDataBMIForLineChart(user)),
