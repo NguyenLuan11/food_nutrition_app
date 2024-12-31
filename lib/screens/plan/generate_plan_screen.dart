@@ -30,8 +30,8 @@ class _GeneratePlanScreenState extends State<GeneratePlanScreen> {
         widget.user.height == null ||
         widget.user.gender == null) {
       if (mounted) {
-        await showMessageDialog(context, "Missing infomation",
-            "Weight, height and gender of user is required to generate plan meals! Please update them!");
+        await showMessageDialog(context, "Thiếu thông tin",
+            "Cân nặng, chiều cao và giới tính của người dùng cần thiết để tạo lộ trình mới! Hãy cập nhật chúng!");
       }
 
       Navigator.push(
@@ -48,7 +48,7 @@ class _GeneratePlanScreenState extends State<GeneratePlanScreen> {
 
       if (isSuccess) {
         await showMessageDialog(
-            context, "Generate Plan", "Generate plan successfully!");
+            context, "Tạo lộ trình mới", "Tạo lộ trình mới thành công!");
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -57,7 +57,7 @@ class _GeneratePlanScreenState extends State<GeneratePlanScreen> {
         );
       } else {
         await showMessageDialog(
-            context, "Generate Plan", "Failed to generate plan");
+            context, "Tạo lộ trình mới", "Tạo lộ trình mới thất bại!");
       }
     }
   }

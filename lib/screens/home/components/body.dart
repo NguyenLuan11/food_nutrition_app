@@ -217,7 +217,10 @@ class _BodyState extends State<Body> {
         const SizedBox(height: kDefaultPadding / 2),
         Center(
           child: Table(
-            border: TableBorder.all(color: kTextColor, width: 1),
+            border: TableBorder.all(
+                color: kTextColor,
+                width: 1,
+                borderRadius: const BorderRadius.all(Radius.circular(10))),
             columnWidths: {
               0: FixedColumnWidth(SizeConfig.screenWidth * 0.5),
               1: FixedColumnWidth(SizeConfig.screenWidth * 0.3),
@@ -275,16 +278,19 @@ class _BodyState extends State<Body> {
           ),
         ),
         const SizedBox(height: kDefaultPadding / 2),
-        ...plan.mealsAllocation.entries.map(
-          (entry) => Center(
-            child: Table(
-              border: TableBorder.all(color: kTextColor, width: 1),
-              columnWidths: {
-                0: FixedColumnWidth(SizeConfig.screenWidth * 0.4),
-                1: FixedColumnWidth(SizeConfig.screenWidth * 0.4),
-              },
-              children: [
-                TableRow(
+        Center(
+          child: Table(
+            border: TableBorder.all(
+                color: kTextColor,
+                width: 1,
+                borderRadius: const BorderRadius.all(Radius.circular(10))),
+            columnWidths: {
+              0: FixedColumnWidth(SizeConfig.screenWidth * 0.4),
+              1: FixedColumnWidth(SizeConfig.screenWidth * 0.4),
+            },
+            children: [
+              ...plan.mealsAllocation.entries.map(
+                (entry) => TableRow(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -308,8 +314,8 @@ class _BodyState extends State<Body> {
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: kDefaultPadding),
