@@ -267,6 +267,11 @@ class _BodyState extends State<Body> {
         ),
         const SizedBox(height: kDefaultPadding / 2),
         Text(
+          "Lượng nước tối thiểu cần uống mỗi ngày: ${plan.waterNeedPerDay.toStringAsFixed(2)} lít",
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: kDefaultPadding / 2),
+        Text(
           "Calo mục tiêu mỗi ngày: ${plan.targetCaloriesPerDay.toStringAsFixed(2)} kcal",
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),

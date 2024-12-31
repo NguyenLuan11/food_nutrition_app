@@ -5,6 +5,7 @@ class PlanRecommend {
   String goal;
   String activityLevel;
   double targetCaloriesPerDay;
+  double waterNeedPerDay;
   Map<String, double> mealsAllocation;
   List<Map<String, dynamic>> plan;
   DateTime? created_date;
@@ -14,6 +15,7 @@ class PlanRecommend {
     required this.goal,
     required this.activityLevel,
     required this.targetCaloriesPerDay,
+    required this.waterNeedPerDay,
     required this.mealsAllocation,
     required this.plan,
     this.created_date,
@@ -24,6 +26,7 @@ class PlanRecommend {
         goal: json["goal"],
         activityLevel: json["activity_level"],
         targetCaloriesPerDay: json["target_calories_per_day"],
+        waterNeedPerDay: json['water_need_per_day'],
         mealsAllocation: Map<String, double>.from(json["meals_allocation"]),
         plan: List<Map<String, dynamic>>.from(json["plan"]),
         created_date: json["created_date"] != null
@@ -36,6 +39,7 @@ class PlanRecommend {
         "goal": goal,
         "activity_level": activityLevel,
         "target_calories_per_day": targetCaloriesPerDay,
+        "water_need_per_day": waterNeedPerDay,
         "meals_allocation": mealsAllocation,
         "plan": plan,
       };
