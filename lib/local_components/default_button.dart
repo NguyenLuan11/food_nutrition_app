@@ -5,7 +5,9 @@ class DefaultButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.press,
-    required this.backgroundColorBtn, this.heightBtn, this.fontSizeText,
+    required this.backgroundColorBtn,
+    this.heightBtn,
+    this.fontSizeText,
   });
 
   final String text;
