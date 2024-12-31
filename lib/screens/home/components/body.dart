@@ -77,13 +77,18 @@ class _BodyState extends State<Body> {
             padding: const EdgeInsets.symmetric(
                 horizontal: kDefaultPadding / 1.5, vertical: kDefaultPadding),
             child: _isLoadingPlan
-                ? const Center(child: CircularProgressIndicator())
+                ? const Center(
+                    child: CircularProgressIndicator(
+                        backgroundColor: kPrimaryColor))
                 : _userPlan != null
                     ? _buildPlanInfo(_userPlan!, widget.user.weight!,
                         widget.user.ideal_weight!)
                     : const Text(
                         "Bạn chưa có lộ trình nào",
-                        style: TextStyle(fontSize: 16, color: Colors.red),
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.red,
+                            fontStyle: FontStyle.italic),
                       ),
           ),
 
