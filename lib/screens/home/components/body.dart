@@ -15,6 +15,7 @@ import 'package:food_nutrition_app/screens/nutrients/list_nutrients_screen.dart'
 import 'package:food_nutrition_app/screens/plan/generate_plan_screen.dart';
 import 'package:food_nutrition_app/screens/profile/components/BMI_line_chart/bmi_line_chart.dart';
 import 'package:food_nutrition_app/screens/profile/components/BMI_line_chart/bmi_points.dart';
+import 'package:food_nutrition_app/size_config.dart';
 import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
@@ -78,7 +79,8 @@ class _BodyState extends State<Body> {
             child: _isLoadingPlan
                 ? const Center(child: CircularProgressIndicator())
                 : _userPlan != null
-                    ? _buildPlanInfo(_userPlan!)
+                    ? _buildPlanInfo(_userPlan!, widget.user.weight!,
+                        widget.user.ideal_weight!)
                     : const Text(
                         "Bạn chưa có lộ trình nào",
                         style: TextStyle(fontSize: 16, color: Colors.red),
@@ -177,43 +179,21 @@ class _BodyState extends State<Body> {
   }
 
   // Hàm hiển thị thông tin kế hoạch
-  Widget _buildPlanInfo(PlanRecommend plan) {
+  Widget _buildPlanInfo(PlanRecommend plan, double weight, double idealWeight) {
+    SizeConfig().init(context);
+
+    late String goal = plan.goal == 'lose_weight'
+        ? 'Giảm cân'
+        : plan.goal == 'gain_weight'
+            ? 'Tăng cân'
+            : 'Duy trì cân nặng';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Center(
           child: Text(
-            "Lộ trình của bạn".toUpperCase(),
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-        ),
-        const SizedBox(height: kDefaultPadding / 2),
-        Text(
-          "Mục tiêu: ${plan.goal == 'lose_weight' ? 'Giảm cân' : plan.goal == 'gain_weight' ? 'Tăng cân' : 'Duy trì cân nặng'}",
-          style: const TextStyle(fontSize: 18),
-        ),
-        const SizedBox(height: kDefaultPadding / 2),
-        Text(
-          "Calo mục tiêu mỗi ngày: ${plan.targetCaloriesPerDay.toStringAsFixed(2)} kcal",
-          style: const TextStyle(fontSize: 18),
-        ),
-        const SizedBox(height: kDefaultPadding / 2),
-        const Text(
-          "Phân bổ bữa ăn:",
-          style: TextStyle(fontSize: 18),
-        ),
-        ...plan.mealsAllocation.entries.map(
-          (entry) => Text(
-            "${entry.key}: ${entry.value.toStringAsFixed(2)} kcal",
-            style: const TextStyle(fontSize: 18),
-          ),
-        ),
-        const SizedBox(height: kDefaultPadding / 2),
-
-        // Hiển thị Danh sách Kế hoạch (Daily Plan)
-        Center(
-          child: Text(
-            "Lịch trình kế hoạch".toUpperCase(),
+            "Lộ trình kế hoạch $goal".toUpperCase(),
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
         ),
@@ -225,8 +205,111 @@ class _BodyState extends State<Body> {
           ),
         ),
         const SizedBox(height: kDefaultPadding / 2),
+        Text(
+          "Mục tiêu: $goal",
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: kDefaultPadding / 2),
+        Center(
+          child: Table(
+            border: TableBorder.all(color: kTextColor, width: 1),
+            columnWidths: {
+              0: FixedColumnWidth(SizeConfig.screenWidth * 0.5),
+              1: FixedColumnWidth(SizeConfig.screenWidth * 0.3),
+            },
+            children: [
+              TableRow(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Cân nặng hiện tại",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "$weight Kg",
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+              TableRow(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Cân nặng lý tưởng",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "$idealWeight Kg",
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: kDefaultPadding / 2),
+        Text(
+          "Calo mục tiêu mỗi ngày: ${plan.targetCaloriesPerDay.toStringAsFixed(2)} kcal",
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: kDefaultPadding / 2),
+        Center(
+          child: Text(
+            "Phân bổ calo trong từng bữa ăn".toUpperCase(),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const SizedBox(height: kDefaultPadding / 2),
+        ...plan.mealsAllocation.entries.map(
+          (entry) => Center(
+            child: Table(
+              border: TableBorder.all(color: kTextColor, width: 1),
+              columnWidths: {
+                0: FixedColumnWidth(SizeConfig.screenWidth * 0.4),
+                1: FixedColumnWidth(SizeConfig.screenWidth * 0.4),
+              },
+              children: [
+                TableRow(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        entry.key == 'breakfast'
+                            ? 'Bữa sáng'
+                            : entry.key == 'lunch'
+                                ? 'Bữa trưa'
+                                : entry.key == 'dinner'
+                                    ? 'Bữa tối'
+                                    : 'Ăn nhẹ',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "${entry.value.toStringAsFixed(2)} kcal",
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: kDefaultPadding),
 
-        // Hiển thị kế hoạch cho từng ngày
+        // Hiển thị Danh sách Kế hoạch (Daily Plan)
         ListView.builder(
           shrinkWrap: true,
           itemCount: plan.plan.length,
