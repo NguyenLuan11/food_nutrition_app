@@ -41,14 +41,21 @@ class _BodyState extends State<Body> {
     try {
       final plan = await PlanRecommendService()
           .getLatestPlanByUserID(widget.user.userId!);
-      setState(() {
-        _userPlan = plan;
-        _isLoadingPlan = false;
-      });
+      if (plan != null) {
+        setState(() {
+          _userPlan = plan;
+          _isLoadingPlan = false;
+        });
+      } else {
+        setState(() {
+          _userPlan = null;
+          _isLoadingPlan = false;
+        });
+      }
     } catch (e) {
-      setState(() {
-        _isLoadingPlan = false;
-      });
+      // setState(() {
+      //   _isLoadingPlan = false;
+      // });
       print("Error fetching plan: $e");
     }
   }
@@ -74,23 +81,22 @@ class _BodyState extends State<Body> {
 
           // Hiển thị kế hoạch hoặc thông báo không có kế hoạch
           Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: kDefaultPadding / 1.5, vertical: kDefaultPadding),
-            child: _isLoadingPlan
-                ? const Center(
-                    child: CircularProgressIndicator(
-                        backgroundColor: kPrimaryColor))
-                : _userPlan != null
-                    ? _buildPlanInfo(_userPlan!, widget.user.weight!,
-                        widget.user.ideal_weight!)
-                    : const Text(
-                        "Bạn chưa có lộ trình nào",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.red,
-                            fontStyle: FontStyle.italic),
-                      ),
-          ),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: kDefaultPadding / 1.5, vertical: kDefaultPadding),
+              child: _isLoadingPlan
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                          backgroundColor: kPrimaryColor))
+                  : _userPlan == null
+                      ? const Text(
+                          "Bạn chưa có lộ trình nào",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.red,
+                              fontStyle: FontStyle.italic),
+                        )
+                      : _buildPlanInfo(_userPlan!, widget.user.weight!,
+                          widget.user.ideal_weight!)),
 
           // Nút "TẠO LỘ TRÌNH MỚI"
           Padding(

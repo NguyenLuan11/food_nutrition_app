@@ -77,9 +77,13 @@ class _BottomNavbarState extends State<BottomNavbar> {
             tooltip: "Profile",
           ),
           IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()));
+            onPressed: () async {
+              await getUserById();
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeScreen(user: user)));
             },
             icon: const Icon(
               Icons.home,

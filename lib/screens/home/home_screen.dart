@@ -55,10 +55,15 @@ class _HomeScreenState extends State<HomeScreen> {
               user = userModel;
               checkTokenExpired(accessToken, context);
             });
+          } else {
+            print("UserModel is null");
           }
         } catch (e) {
+          print("Error fetching user: $e");
           await showMessageDialog(context, "Error!", e.toString());
         }
+      } else {
+        print("User ID is null");
       }
     } else {
       setState(() {
